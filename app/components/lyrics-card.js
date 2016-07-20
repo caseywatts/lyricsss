@@ -1,10 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  aRandomLyric: 'Lyricsss',
-  someWords: ['a', 'b', 'c'],
+  init() {
+    this._super(...arguments);
+    this.set('someWords', this.randomize(this.get('someWords')));
+  },
+  aRandomLyric: '~Lyricsss~', // default "lyric" displayed
   click() {
-    let aRandomLyric = this.someWords.pop();
-    this.set('aRandomLyric', aRandomLyric)
+    console.log(this.get('someWords'));
+    let aRandomLyric = this.get('someWords').pop();
+    this.set('aRandomLyric', aRandomLyric);
+  },
+  randomize(words) {
+    return words.sort(function () {
+      return Math.random() - 0.5;
+    });
   }
 });

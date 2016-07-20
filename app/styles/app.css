@@ -1,0 +1,9 @@
+.lyrics-card {
+  font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+  background-color: steelblue;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
