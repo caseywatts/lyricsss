@@ -6,7 +6,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('lyrics-card');
+  this.route('main');
 });
 
 export default Router;
