@@ -44,8 +44,11 @@ define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (export
       this.set('showSplashScreen', false);
       this.set('showCards', true);
     },
+    tap: function tap() {
+      this.click();
+    },
     click: function click() {
-      this.hideSplashScreen();
+      this.splashScreenToCards();
       var aRandomLyric = this.get('someWords').pop();
       this.set('aRandomLyric', aRandomLyric);
     },
@@ -538,7 +541,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+3bd70724"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+af12a264"});
 }
 
 /* jshint ignore:end */

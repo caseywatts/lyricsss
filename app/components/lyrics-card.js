@@ -11,6 +11,9 @@ export default Ember.Component.extend({
     this.set('showSplashScreen', false);
     this.set('showCards', true);
   },
+  tap() {
+    this.click();
+  },
   click() {
     this.splashScreenToCards();
     let aRandomLyric = this.get('someWords').pop();
