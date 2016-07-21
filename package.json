@@ -11,7 +11,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember test",
-    "push-phonegap": "mv dist/ www/ && git add . && git commit -m 'phonegap build' && git push"
+    "push-phonegap": "cp dist/ www/ && git add . && git commit -m 'phonegap build' && git push"
   },
   "repository": "",
   "engines": {

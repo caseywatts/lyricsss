@@ -224,7 +224,7 @@ define('lyricsss/router', ['exports', 'ember', 'lyricsss/config/environment'], f
   });
 
   Router.map(function () {
-    this.route('main', { path: '' });
+    this.route('main', { path: '/index.html' });
   });
 
   exports['default'] = Router;
@@ -382,7 +382,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+7f58322c"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+763a88cc"});
 }
 
 /* jshint ignore:end */
