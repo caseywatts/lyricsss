@@ -11,7 +11,7 @@ export default Ember.Component.extend({
     this.set('showSplashScreen', false);
     this.set('showCards', true);
   },
-  tap() {
+  touchEnd() {
     this.click();
   },
   click() {
