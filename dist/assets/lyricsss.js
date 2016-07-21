@@ -232,7 +232,7 @@ define('lyricsss/router', ['exports', 'ember', 'lyricsss/config/environment'], f
 define("lyricsss/routes/main", ["exports", "ember"], function (exports, _ember) {
   exports["default"] = _ember["default"].Route.extend({
     model: function model() {
-      return _ember["default"].$.getJSON("data/mostCommonWords.json");
+      return _ember["default"].$.getJSON("data/5000MostCommonLyricWords.json");
     }
   });
 });
@@ -382,7 +382,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+2dc52d0e"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+677e0026"});
 }
 
 /* jshint ignore:end */
