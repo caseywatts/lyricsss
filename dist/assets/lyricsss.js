@@ -44,7 +44,7 @@ define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (export
       this.set('showSplashScreen', false);
       this.set('showCards', true);
     },
-    tap: function tap() {
+    touchEnd: function touchEnd() {
       this.click();
     },
     click: function click() {
@@ -541,7 +541,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+b5dd898c"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+dd5479ea"});
 }
 
 /* jshint ignore:end */
