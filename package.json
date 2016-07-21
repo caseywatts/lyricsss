@@ -11,7 +11,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember test",
-    "push-phonegap": "git subtree push --prefix dist origin gh-pages"
+    "push-phonegap": "mv dist/ www/ && git add . && git commit -m 'phonegap build' && git push"
   },
   "repository": "",
   "engines": {
