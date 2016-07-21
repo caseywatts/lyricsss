@@ -1,6 +1,11 @@
 body {
   font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-  background-color: #b2e6c9;
+  background:
+    linear-gradient(63deg, #b2e6c9 23%, transparent 23%) 7px 0,
+    linear-gradient(63deg, transparent 74%, #b2e6c9 78%),
+    linear-gradient(63deg, transparent 34%, #b2e6c9 38%, #b2e6c9 58%, transparent 62%),
+    #92c6a9;
+  background-size: 16px 48px;
 }
 
 .splash-screen {

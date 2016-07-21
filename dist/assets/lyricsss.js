@@ -294,7 +294,7 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
           var el3 = dom.createTextNode("\n    ");
           dom.appendChild(el2, el3);
           var el3 = dom.createElement("p");
-          var el4 = dom.createTextNode("A deck of cards with a common song lyric on each.");
+          var el4 = dom.createTextNode("A deck of cards, each with a common song lyric.");
           dom.appendChild(el3, el4);
           dom.appendChild(el2, el3);
           var el3 = dom.createTextNode("\n    ");
@@ -541,7 +541,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+e4d59933"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+b5dd898c"});
 }
 
 /* jshint ignore:end */
