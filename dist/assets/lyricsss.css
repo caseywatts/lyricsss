@@ -1,10 +1,24 @@
+body {
+  font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+  background-color: #b2e6c9;
+}
 
+.splash-screen {
+  z-index: 999;
+  border-radius: 10px;
+  background-color: #87C3F1;
+  padding: 10%;
+  margin: 10%;
+}
 
 /* My CSS */
 .center-everything {
   display:flex;
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
+}
+
+.fullscreen {
   position:absolute;
   top: 0px;
   bottom: 0px;
@@ -18,7 +32,6 @@
   justify-content: center; /* Horizontal center alignment */
   width:400px;
   height:200px;
-  font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
   background-color: #87C3F1;
   border-radius: 10px;
   padding: 15px;

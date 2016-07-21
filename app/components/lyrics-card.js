@@ -4,10 +4,15 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     this.set('someWords', this.randomize(this.get('someWords')));
+    this.set('showSplashScreen', true);
+    this.set('showCards', false);
   },
-  aRandomLyric: '~Lyricsss~', // default "lyric" displayed
+  splashScreenToCards() {
+    this.set('showSplashScreen', false);
+    this.set('showCards', true);
+  },
   click() {
-    console.log(this.get('someWords'));
+    this.hideSplashScreen();
     let aRandomLyric = this.get('someWords').pop();
     this.set('aRandomLyric', aRandomLyric);
   },
