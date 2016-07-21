@@ -382,7 +382,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+763a88cc"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+1984ab0b"});
 }
 
 /* jshint ignore:end */
