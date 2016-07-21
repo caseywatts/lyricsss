@@ -281,7 +281,7 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createElement("div");
-          dom.setAttribute(el1, "class", "splash-screen");
+          dom.setAttribute(el1, "class", "splash-screen blue-card flex-center");
           var el2 = dom.createTextNode("\n  ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
@@ -384,11 +384,11 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createElement("div");
-          dom.setAttribute(el1, "class", "fullscreen center-everything");
+          dom.setAttribute(el1, "class", "fullscreen flex-center");
           var el2 = dom.createTextNode("\n  ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
-          dom.setAttribute(el2, "class", "lyrics-card");
+          dom.setAttribute(el2, "class", "lyrics-card blue-card flex-center");
           var el3 = dom.createTextNode("\n    ");
           dom.appendChild(el2, el3);
           var el3 = dom.createElement("h1");
@@ -541,7 +541,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+af12a264"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+e4d59933"});
 }
 
 /* jshint ignore:end */
