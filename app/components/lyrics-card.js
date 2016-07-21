@@ -12,7 +12,7 @@ export default Ember.Component.extend({
     this.set('showCards', true);
   },
   click() {
-    this.hideSplashScreen();
+    this.splashScreenToCards();
     let aRandomLyric = this.get('someWords').pop();
     this.set('aRandomLyric', aRandomLyric);
   },
