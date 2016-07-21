@@ -2,6 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return Ember.$.getJSON("data/5000MostCommonLyricWords.json");
+    return Ember.$.getJSON("data/3767MostCommonLyricWordsInDictionary.json");
   }
 });
