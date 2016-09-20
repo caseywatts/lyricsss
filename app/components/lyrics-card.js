@@ -19,6 +19,14 @@ export default Ember.Component.extend({
     let aRandomLyric = this.get('someWords').pop();
     this.set('aRandomLyric', aRandomLyric);
   },
+  didRender() {
+    this._super(...arguments);
+    this.$('#timer').timer('remove');
+    this.$('#timer').timer({
+      countdown: true,
+      duration: '30s'
+    });
+  },
   randomize(words) {
     return words.sort(function () {
       return Math.random() - 0.5;

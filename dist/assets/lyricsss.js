@@ -52,6 +52,14 @@ define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (export
       var aRandomLyric = this.get('someWords').pop();
       this.set('aRandomLyric', aRandomLyric);
     },
+    didRender: function didRender() {
+      this._super.apply(this, arguments);
+      this.$('#timer').timer('remove');
+      this.$('#timer').timer({
+        countdown: true,
+        duration: '30s'
+      });
+    },
     randomize: function randomize(words) {
       return words.sort(function () {
         return Math.random() - 0.5;
@@ -371,7 +379,7 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
               "column": 0
             },
             "end": {
-              "line": 24,
+              "line": 25,
               "column": 0
             }
           },
@@ -391,6 +399,11 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
           dom.setAttribute(el2, "class", "lyrics-card blue-card flex-center");
           var el3 = dom.createTextNode("\n    ");
           dom.appendChild(el2, el3);
+          var el3 = dom.createElement("h2");
+          dom.setAttribute(el3, "id", "timer");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n    ");
+          dom.appendChild(el2, el3);
           var el3 = dom.createElement("h1");
           var el4 = dom.createComment("");
           dom.appendChild(el3, el4);
@@ -407,10 +420,10 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
           var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 1]), 0, 0);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]), 0, 0);
           return morphs;
         },
-        statements: [["content", "aRandomLyric", ["loc", [null, [21, 8], [21, 24]]]]],
+        statements: [["content", "aRandomLyric", ["loc", [null, [22, 8], [22, 24]]]]],
         locals: [],
         templates: []
       };
@@ -429,7 +442,7 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
             "column": 0
           },
           "end": {
-            "line": 25,
+            "line": 26,
             "column": 0
           }
         },
@@ -457,7 +470,7 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "if", [["get", "showSplashScreen", ["loc", [null, [1, 6], [1, 22]]]]], [], 0, null, ["loc", [null, [1, 0], [16, 7]]]], ["block", "if", [["get", "showCards", ["loc", [null, [18, 6], [18, 15]]]]], [], 1, null, ["loc", [null, [18, 0], [24, 7]]]]],
+      statements: [["block", "if", [["get", "showSplashScreen", ["loc", [null, [1, 6], [1, 22]]]]], [], 0, null, ["loc", [null, [1, 0], [16, 7]]]], ["block", "if", [["get", "showCards", ["loc", [null, [18, 6], [18, 15]]]]], [], 1, null, ["loc", [null, [18, 0], [25, 7]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -541,7 +554,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+dd5479ea"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+d4e54a79"});
 }
 
 /* jshint ignore:end */
