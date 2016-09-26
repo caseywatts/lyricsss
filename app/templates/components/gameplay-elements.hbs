@@ -1,0 +1,24 @@
+<div class="fullscreen flex-center">
+  <div class="lyrics-card {{activeTeam}} flex-center">
+    <h1>{{aRandomLyric}}</h1>
+  </div>
+  <div class="button-card flex-row">
+    <button type="button" class="btn btn-default" {{action "nextWord"}}><span class="glyphicon glyphicon-fast-forward"></span></button>
+  </div>
+  <div class="button-card flex-row">
+    <div class="btn-group-lg" role="group" aria-label="...">
+      <button type="button" class="btn btn-default" {{action "resetTimer"}}><span class="glyphicon glyphicon-repeat"></span></button>
+      <button type="button" class="btn btn-default timer"></button>
+      <button type="button" class="btn btn-default" {{action "toggleTimer"}}><span class="glyphicon {{toggleIcon}}"></span></button>
+    </div>
+  </div>
+  <div class="button-card flex-row">
+    <span class="label team-label blue">{{blueScore}}</span>
+    <span class="label team-label red">{{redScore}}</span>
+    <div class="btn-group-lg" role="group" aria-label="...">
+      <button type="button" class="btn btn-default" {{action "incrementScore"}}><span class="glyphicon glyphicon-thumbs-up"></span></button>
+      <button type="button" class="btn btn-default" {{action "decrementScore"}}><span class="glyphicon glyphicon-thumbs-down"></span></button>
+      <button type="button" class="btn btn-default" {{action "nextTeam"}}><span class="glyphicon glyphicon-arrow-right"></span></button>
+    </div>
+  </div>
+</div>
