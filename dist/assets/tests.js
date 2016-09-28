@@ -13,7 +13,7 @@ define('lyricsss/tests/components/gameplay-elements.jshint', ['exports'], functi
   QUnit.module('JSHint | components/gameplay-elements.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/gameplay-elements.js should pass jshint.');
+    assert.ok(false, 'components/gameplay-elements.js should pass jshint.\ncomponents/gameplay-elements.js: line 13, col 43, \'event\' is defined but never used.\ncomponents/gameplay-elements.js: line 16, col 30, \'event\' is defined but never used.\ncomponents/gameplay-elements.js: line 13, col 5, \'jQuery\' is not defined.\n\n3 errors');
   });
 });
 define('lyricsss/tests/components/lyrics-card.jshint', ['exports'], function (exports) {

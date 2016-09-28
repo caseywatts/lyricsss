@@ -4,11 +4,19 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     this.set('someWords', this.randomize(this.get('someWords')));
-    setWord(this);
-    this.set('toggleIcon', 'glyphicon-pause');
+    changeWord(this);
+    this.set('timerIconState', 'glyphicon-pause');
     this.set('redScore', 0);
     this.set('blueScore', 0);
     this.set('activeTeam', 'blue');
+
+    jQuery(window).bind("focus", function(event){
+      this.Ember.$('.timer').timer('resume');
+      // this.Ember.set('timerIconState', 'glyphicon-play');
+    }).bind("blur", function(event){
+      this.Ember.$('.timer').timer('pause');
+      // this.Ember.setProperties('timerIconState', 'glyphicon-play');
+    });
   },
   didInsertElement() {
     resetTimer(this);
@@ -20,9 +28,9 @@ export default Ember.Component.extend({
   },
   actions: {
     nextWord() {
-      setWord(this);
+      changeWord(this);
       resetTimer(this);
-      this.set('toggleIcon', 'glyphicon-pause');
+      this.set('timerIconState', 'glyphicon-pause');
     },
     resetTimer() {
       resetTimer(this);
@@ -30,29 +38,33 @@ export default Ember.Component.extend({
     toggleTimer() {
       if (this.$('.timer').data('state') === 'running') {
         this.$('.timer').timer('pause');
-        this.set('toggleIcon', 'glyphicon-play');
+        this.set('timerIconState', 'glyphicon-play');
       } else {
         this.$('.timer').timer('resume');
-        this.set('toggleIcon', 'glyphicon-pause');
+        this.set('timerIconState', 'glyphicon-pause');
       }
     },
     incrementScore() {
       changeScore(this, 1);
+      changeWord(this);
+      nextTeam(this);
+      resetTimer(this);
     },
     decrementScore() {
       changeScore(this, -1);
-    },
-    nextTeam() {
-      if (this.get('activeTeam') === 'red') {
-        this.set('activeTeam', 'blue');
-      } else {
-        this.set('activeTeam', 'red');
-      }
-    }
+      changeWord(this);
+      nextTeam(this);
+      resetTimer(this);
+    }//,
+    // nextTeam() {
+    //   nextTeam(this);
+    //   changeWord(this);
+    //   resetTimer(this);
+    // }
   }
 });
 
-function setWord(_this) {
+function changeWord(_this) {
   let aRandomLyric = _this.get('someWords').pop();
   _this.set('aRandomLyric', aRandomLyric);
 }
@@ -70,5 +82,13 @@ function changeScore(_this, amount) {
     _this.incrementProperty('redScore', amount);
   } else {
     _this.incrementProperty('blueScore', amount);
+  }
+}
+
+function nextTeam(_this) {
+  if (_this.get('activeTeam') === 'red') {
+    _this.set('activeTeam', 'blue');
+  } else {
+    _this.set('activeTeam', 'red');
   }
 }

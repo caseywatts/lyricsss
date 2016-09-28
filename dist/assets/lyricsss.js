@@ -291,11 +291,19 @@ define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (
     init: function init() {
       this._super.apply(this, arguments);
       this.set('someWords', this.randomize(this.get('someWords')));
-      setWord(this);
-      this.set('toggleIcon', 'glyphicon-pause');
+      changeWord(this);
+      this.set('timerIconState', 'glyphicon-pause');
       this.set('redScore', 0);
       this.set('blueScore', 0);
       this.set('activeTeam', 'blue');
+
+      jQuery(window).bind("focus", function (event) {
+        this.Ember.$('.timer').timer('resume');
+        // this.Ember.set('timerIconState', 'glyphicon-play');
+      }).bind("blur", function (event) {
+        this.Ember.$('.timer').timer('pause');
+        // this.Ember.setProperties('timerIconState', 'glyphicon-play');
+      });
     },
     didInsertElement: function didInsertElement() {
       _resetTimer(this);
@@ -307,9 +315,9 @@ define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (
     },
     actions: {
       nextWord: function nextWord() {
-        setWord(this);
+        changeWord(this);
         _resetTimer(this);
-        this.set('toggleIcon', 'glyphicon-pause');
+        this.set('timerIconState', 'glyphicon-pause');
       },
       resetTimer: function resetTimer() {
         _resetTimer(this);
@@ -317,29 +325,33 @@ define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (
       toggleTimer: function toggleTimer() {
         if (this.$('.timer').data('state') === 'running') {
           this.$('.timer').timer('pause');
-          this.set('toggleIcon', 'glyphicon-play');
+          this.set('timerIconState', 'glyphicon-play');
         } else {
           this.$('.timer').timer('resume');
-          this.set('toggleIcon', 'glyphicon-pause');
+          this.set('timerIconState', 'glyphicon-pause');
         }
       },
       incrementScore: function incrementScore() {
         changeScore(this, 1);
+        changeWord(this);
+        nextTeam(this);
+        _resetTimer(this);
       },
       decrementScore: function decrementScore() {
         changeScore(this, -1);
-      },
-      nextTeam: function nextTeam() {
-        if (this.get('activeTeam') === 'red') {
-          this.set('activeTeam', 'blue');
-        } else {
-          this.set('activeTeam', 'red');
-        }
-      }
+        changeWord(this);
+        nextTeam(this);
+        _resetTimer(this);
+      } //,
+      // nextTeam() {
+      //   nextTeam(this);
+      //   changeWord(this);
+      //   resetTimer(this);
+      // }
     }
   });
 
-  function setWord(_this) {
+  function changeWord(_this) {
     var aRandomLyric = _this.get('someWords').pop();
     _this.set('aRandomLyric', aRandomLyric);
   }
@@ -357,6 +369,14 @@ define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (
       _this.incrementProperty('redScore', amount);
     } else {
       _this.incrementProperty('blueScore', amount);
+    }
+  }
+
+  function nextTeam(_this) {
+    if (_this.get('activeTeam') === 'red') {
+      _this.set('activeTeam', 'blue');
+    } else {
+      _this.set('activeTeam', 'red');
     }
   }
 });
@@ -4622,7 +4642,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
             "column": 0
           },
           "end": {
-            "line": 25,
+            "line": 27,
             "column": 0
           }
         },
@@ -4709,6 +4729,24 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         dom.setAttribute(el2, "class", "button-card flex-row");
         var el3 = dom.createTextNode("\n    ");
         dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "btn-group-lg");
+        dom.setAttribute(el3, "role", "group");
+        dom.setAttribute(el3, "aria-label", "...");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("button");
+        dom.setAttribute(el4, "type", "button");
+        dom.setAttribute(el4, "class", "btn btn-default");
+        var el5 = dom.createElement("span");
+        dom.setAttribute(el5, "class", "glyphicon glyphicon-thumbs-down");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
         var el3 = dom.createElement("span");
         dom.setAttribute(el3, "class", "label team-label blue");
         var el4 = dom.createComment("");
@@ -4738,21 +4776,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4, "type", "button");
-        dom.setAttribute(el4, "class", "btn btn-default");
-        var el5 = dom.createElement("span");
-        dom.setAttribute(el5, "class", "glyphicon glyphicon-thumbs-down");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4, "type", "button");
-        dom.setAttribute(el4, "class", "btn btn-default");
-        var el5 = dom.createElement("span");
-        dom.setAttribute(el5, "class", "glyphicon glyphicon-arrow-right");
-        dom.appendChild(el4, el5);
+        var el4 = dom.createComment("<button type=\"button\" class=\"btn btn-default\" {{action \"nextTeam\"}}><span class=\"glyphicon glyphicon-arrow-right\"></span></button>");
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
@@ -4776,25 +4800,22 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         var element5 = dom.childAt(element3, [5]);
         var element6 = dom.childAt(element5, [0]);
         var element7 = dom.childAt(element0, [7]);
-        var element8 = dom.childAt(element7, [5]);
-        var element9 = dom.childAt(element8, [1]);
-        var element10 = dom.childAt(element8, [3]);
-        var element11 = dom.childAt(element8, [5]);
-        var morphs = new Array(11);
+        var element8 = dom.childAt(element7, [1, 1]);
+        var element9 = dom.childAt(element7, [7, 1]);
+        var morphs = new Array(10);
         morphs[0] = dom.createAttrMorph(element1, 'class');
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [1]), 0, 0);
         morphs[2] = dom.createElementMorph(element2);
         morphs[3] = dom.createElementMorph(element4);
         morphs[4] = dom.createElementMorph(element5);
         morphs[5] = dom.createAttrMorph(element6, 'class');
-        morphs[6] = dom.createMorphAt(dom.childAt(element7, [1]), 0, 0);
+        morphs[6] = dom.createElementMorph(element8);
         morphs[7] = dom.createMorphAt(dom.childAt(element7, [3]), 0, 0);
-        morphs[8] = dom.createElementMorph(element9);
-        morphs[9] = dom.createElementMorph(element10);
-        morphs[10] = dom.createElementMorph(element11);
+        morphs[8] = dom.createMorphAt(dom.childAt(element7, [5]), 0, 0);
+        morphs[9] = dom.createElementMorph(element9);
         return morphs;
       },
-      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "activeTeam", ["loc", [null, [2, 28], [2, 38]]]], " flex-center"]]], ["content", "aRandomLyric", ["loc", [null, [3, 8], [3, 24]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["element", "action", ["resetTimer"], [], ["loc", [null, [10, 52], [10, 75]]]], ["element", "action", ["toggleTimer"], [], ["loc", [null, [12, 52], [12, 76]]]], ["attribute", "class", ["concat", ["glyphicon ", ["get", "toggleIcon", ["loc", [null, [12, 102], [12, 112]]]]]]], ["content", "blueScore", ["loc", [null, [16, 40], [16, 53]]]], ["content", "redScore", ["loc", [null, [17, 39], [17, 51]]]], ["element", "action", ["incrementScore"], [], ["loc", [null, [19, 52], [19, 79]]]], ["element", "action", ["decrementScore"], [], ["loc", [null, [20, 52], [20, 79]]]], ["element", "action", ["nextTeam"], [], ["loc", [null, [21, 52], [21, 73]]]]],
+      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "activeTeam", ["loc", [null, [2, 28], [2, 38]]]], " flex-center"]]], ["content", "aRandomLyric", ["loc", [null, [3, 8], [3, 24]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["element", "action", ["resetTimer"], [], ["loc", [null, [10, 52], [10, 75]]]], ["element", "action", ["toggleTimer"], [], ["loc", [null, [12, 52], [12, 76]]]], ["attribute", "class", ["concat", ["glyphicon ", ["get", "timerIconState", ["loc", [null, [12, 102], [12, 116]]]]]]], ["element", "action", ["decrementScore"], [], ["loc", [null, [17, 52], [17, 79]]]], ["content", "blueScore", ["loc", [null, [19, 40], [19, 53]]]], ["content", "redScore", ["loc", [null, [20, 39], [20, 51]]]], ["element", "action", ["incrementScore"], [], ["loc", [null, [22, 52], [22, 79]]]]],
       locals: [],
       templates: []
     };
