@@ -1,6 +1,6 @@
 <div class="fullscreen flex-center">
   <div class="lyrics-card {{teams.active}} flex-center">
-    <h1>{{aRandomLyric}}</h1>
+    <h1>{{wordHistory.aRandomLyric}}</h1>
   </div>
   <div class="button-card flex-row">
     <button type="button" class="btn btn-default" {{action "nextWord"}}><span class="glyphicon glyphicon-fast-forward"></span></button>
@@ -12,16 +12,5 @@
       <button type="button" class="btn btn-default" {{action "toggleTimer"}}><span class="glyphicon {{timer.iconState}}"></span></button>
     </div>
   </div>
-  <div class="button-card flex-row">
-    <div class="btn-group-lg" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" {{action "wrongAnswer"}}><span class="glyphicon glyphicon-remove"></span></button>
-    </div>
-    <span class="label team-label blue">{{teams.blueScore}}</span>
-    <span class="label team-label red">{{teams.redScore}}</span>
-    <div class="btn-group-lg" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" {{action "correctAnswer"}}><span class="glyphicon glyphicon-ok"></span></button>
-      <!--<button type="button" class="btn btn-default" {{action "nextTeam"}}><span class="glyphicon glyphicon-arrow-right"></span></button>-->
-    </div>
-    <span class="label team-label label-info">Rounds: {{teams.rounds}}</span>
-  </div>
+  {{teams-display-control}}
 </div>
