@@ -325,6 +325,14 @@ define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (
         return Math.random() - 0.5;
       });
       this.changeWord();
+
+      $(window).bind('focus', function () {
+        this.get('timer').resume();
+        // this.Ember.set('timerIconState', 'glyphicon-play'); //This doesn't work, maybe I can fix it sometime
+      }).bind('blur', function () {
+        this.get('timer').pause();
+        // this.Ember.setProperties('timerIconState', 'glyphicon-play'); //This doesn't work, maybe I can fix it sometime
+      });
     },
     teams: _ember['default'].inject.service('team-tracking'),
     timer: _ember['default'].inject.service('timer-control'),

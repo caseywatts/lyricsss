@@ -48,6 +48,14 @@ export default Ember.Component.extend({
       return Math.random() - 0.5;
     });
     this.changeWord();
+
+    $(window).bind('focus', function() {
+      this.get('timer').resume();
+      // this.Ember.set('timerIconState', 'glyphicon-play'); //This doesn't work, maybe I can fix it sometime
+    }).bind('blur', function() {
+      this.get('timer').pause();
+      // this.Ember.setProperties('timerIconState', 'glyphicon-play'); //This doesn't work, maybe I can fix it sometime
+    });
   },
   teams: Ember.inject.service('team-tracking'),
   timer: Ember.inject.service('timer-control'),
