@@ -288,97 +288,48 @@ define('lyricsss/components/ember-wormhole', ['exports', 'ember-wormhole/compone
 });
 define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
-    init: function init() {
-      this._super.apply(this, arguments);
-      this.set('someWords', this.randomize(this.get('someWords')));
-      changeWord(this);
-      this.set('timerIconState', 'glyphicon-pause');
-      this.set('redScore', 0);
-      this.set('blueScore', 0);
-      this.set('activeTeam', 'blue');
-
-      jQuery(window).bind("focus", function (event) {
-        this.Ember.$('.timer').timer('resume');
-        // this.Ember.set('timerIconState', 'glyphicon-play');
-      }).bind("blur", function (event) {
-        this.Ember.$('.timer').timer('pause');
-        // this.Ember.setProperties('timerIconState', 'glyphicon-play');
-      });
-    },
-    didInsertElement: function didInsertElement() {
-      _resetTimer(this);
-    },
-    randomize: function randomize(words) {
-      return words.sort(function () {
-        return Math.random() - 0.5;
-      });
-    },
     actions: {
+      correctAnswer: function correctAnswer() {
+        this.get('wordHistory').add(this.get('aRandomLyric'), this.get('teams').get('active'), true, this.get('timer').get('elapsedTime'));
+        this.get('teams').increaseScore(1);
+        this.changeWord();
+        this.get('teams').next();
+        this.get('timer').reset();
+        this.get('teams').updateRoundCounter();
+      },
       nextWord: function nextWord() {
-        changeWord(this);
-        _resetTimer(this);
-        this.set('timerIconState', 'glyphicon-pause');
+        this.changeWord();
+        this.get('timer').reset();
       },
       resetTimer: function resetTimer() {
-        _resetTimer(this);
+        this.get('timer').reset();
       },
       toggleTimer: function toggleTimer() {
-        if (this.$('.timer').data('state') === 'running') {
-          this.$('.timer').timer('pause');
-          this.set('timerIconState', 'glyphicon-play');
-        } else {
-          this.$('.timer').timer('resume');
-          this.set('timerIconState', 'glyphicon-pause');
-        }
+        this.get('timer').toggle();
       },
-      incrementScore: function incrementScore() {
-        changeScore(this, 1);
-        changeWord(this);
-        nextTeam(this);
-        _resetTimer(this);
-      },
-      decrementScore: function decrementScore() {
-        changeScore(this, -1);
-        changeWord(this);
-        nextTeam(this);
-        _resetTimer(this);
-      } //,
-      // nextTeam() {
-      //   nextTeam(this);
-      //   changeWord(this);
-      //   resetTimer(this);
-      // }
-    }
+      wrongAnswer: function wrongAnswer() {
+        this.get('wordHistory').add(this.get('aRandomLyric'), this.get('teams').get('active'), false, this.get('timer').get('elapsedTime'));
+        this.changeWord();
+        this.get('teams').next();
+        this.get('timer').reset();
+        this.get('teams').updateRoundCounter();
+      }
+    },
+    changeWord: function changeWord() {
+      var aRandomLyric = this.get('someWords').pop();
+      this.set('aRandomLyric', aRandomLyric);
+    },
+    didInsertElement: function didInsertElement() {
+      this.get('timer').reset();
+      this.get('someWords').sort(function () {
+        return Math.random() - 0.5;
+      });
+      this.changeWord();
+    },
+    teams: _ember['default'].inject.service('team-tracking'),
+    timer: _ember['default'].inject.service('timer-control'),
+    wordHistory: _ember['default'].inject.service('word-history')
   });
-
-  function changeWord(_this) {
-    var aRandomLyric = _this.get('someWords').pop();
-    _this.set('aRandomLyric', aRandomLyric);
-  }
-
-  function _resetTimer(_this) {
-    _this.$('.timer').timer('remove');
-    _this.$('.timer').timer({
-      countdown: true,
-      duration: '30s'
-    });
-  }
-
-  function changeScore(_this, amount) {
-    if (_this.get('activeTeam') === 'red') {
-      _this.incrementProperty('redScore', amount);
-    } else {
-      _this.incrementProperty('blueScore', amount);
-    }
-  }
-
-  function nextTeam(_this) {
-    if (_this.get('activeTeam') === 'red') {
-      _this.set('activeTeam', 'blue');
-    } else {
-      _this.set('activeTeam', 'red');
-    }
-  }
 });
 define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
@@ -703,6 +654,102 @@ define('lyricsss/services/ajax', ['exports', 'ember-ajax/services/ajax'], functi
       return _emberAjaxServicesAjax['default'];
     }
   });
+});
+define('lyricsss/services/team-tracking', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Service.extend({
+    active: 'blue',
+    blueScore: 0,
+    // Changes score of current team.
+    increaseScore: function increaseScore(amount) {
+      if (this.get('active') === 'red') {
+        this.incrementProperty('redScore', amount);
+      } else {
+        this.incrementProperty('blueScore', amount);
+      }
+    },
+    next: function next() {
+      if (this.get('active') === 'red') {
+        this.set('active', 'blue');
+      } else {
+        this.set('active', 'red');
+      }
+    },
+    redScore: 0,
+    rounds: 0,
+    _tries: 0, // Number of times the 'correct' or 'wrong' buttons are clicked. = Rounds * numTeams
+    updateRoundCounter: function updateRoundCounter() {
+      this.incrementProperty('_tries', 1);
+      this.set('rounds', parseInt(this.get('_tries') / 2));
+    }
+  });
+});
+define('lyricsss/services/timer-control', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Service.extend({
+    _countdown: function _countdown() {
+      if (this.get('seconds') === 0) {
+        this.set('timeUp', true);
+      } else {
+        this.incrementProperty('seconds', -1);
+        this._timer = _ember['default'].run.later(this, '_countdown', 1000);
+      }
+    },
+    elapsedTime: function elapsedTime() {
+      return this.get('timeLimit') - this.get('seconds');
+    },
+    iconState: 'glyphicon-pause',
+    timeUp: false,
+    pause: function pause() {
+      _ember['default'].run.cancel(this.get('_timer'));
+      this.set('_timer', null);
+      this.set('iconState', 'glyphicon-play');
+    },
+    reset: function reset() {
+      _ember['default'].run.cancel(this.get('_timer'));
+      this.set('seconds', this.get('timeLimit') + 1);
+      this._countdown();
+      this.set('iconState', 'glyphicon-pause');
+      this.set('timeUp', false);
+    },
+    resume: function resume() {
+      this._countdown();
+      this.set('iconState', 'glyphicon-pause');
+    },
+    seconds: 0,
+    timeLimit: 30, // Starting time on _timer, in seconds
+    _timer: null,
+    toggle: function toggle() {
+      if (this.get('_timer')) {
+        this.pause();
+      } else {
+        this.resume();
+      }
+    }
+  });
+});
+define('lyricsss/services/word-history', ['exports', 'ember'], function (exports, _ember) {
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+  exports['default'] = _ember['default'].Service.extend({
+    add: function add(word, team, answerCorrect, time) {
+      this.get('list').pushObject(new PastWord(word, team, answerCorrect, time));
+    },
+    list: []
+  });
+
+  // Data structure containing information about each word tried
+
+  var PastWord = function PastWord(word, team, answerCorrect, time) {
+    _classCallCheck(this, PastWord);
+
+    // string
+    this.word = word;
+    // string
+    this.team = team;
+    // boolean
+    this.answerCorrect = answerCorrect;
+    // string
+    this.time = time;
+  };
 });
 define("lyricsss/templates/components/bs-accordion-item", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
@@ -4642,7 +4689,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
             "column": 0
           },
           "end": {
-            "line": 27,
+            "line": 28,
             "column": 0
           }
         },
@@ -4707,7 +4754,9 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("button");
         dom.setAttribute(el4, "type", "button");
-        dom.setAttribute(el4, "class", "btn btn-default timer");
+        dom.setAttribute(el4, "class", "btn btn-default");
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
@@ -4739,7 +4788,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         dom.setAttribute(el4, "type", "button");
         dom.setAttribute(el4, "class", "btn btn-default");
         var el5 = dom.createElement("span");
-        dom.setAttribute(el5, "class", "glyphicon glyphicon-thumbs-down");
+        dom.setAttribute(el5, "class", "glyphicon glyphicon-remove");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
@@ -4771,7 +4820,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         dom.setAttribute(el4, "type", "button");
         dom.setAttribute(el4, "class", "btn btn-default");
         var el5 = dom.createElement("span");
-        dom.setAttribute(el5, "class", "glyphicon glyphicon-thumbs-up");
+        dom.setAttribute(el5, "class", "glyphicon glyphicon-ok");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n      ");
@@ -4779,6 +4828,15 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         var el4 = dom.createComment("<button type=\"button\" class=\"btn btn-default\" {{action \"nextTeam\"}}><span class=\"glyphicon glyphicon-arrow-right\"></span></button>");
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("span");
+        dom.setAttribute(el3, "class", "label team-label label-info");
+        var el4 = dom.createTextNode("Rounds: ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -4802,20 +4860,22 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         var element7 = dom.childAt(element0, [7]);
         var element8 = dom.childAt(element7, [1, 1]);
         var element9 = dom.childAt(element7, [7, 1]);
-        var morphs = new Array(10);
+        var morphs = new Array(12);
         morphs[0] = dom.createAttrMorph(element1, 'class');
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [1]), 0, 0);
         morphs[2] = dom.createElementMorph(element2);
         morphs[3] = dom.createElementMorph(element4);
-        morphs[4] = dom.createElementMorph(element5);
-        morphs[5] = dom.createAttrMorph(element6, 'class');
-        morphs[6] = dom.createElementMorph(element8);
-        morphs[7] = dom.createMorphAt(dom.childAt(element7, [3]), 0, 0);
-        morphs[8] = dom.createMorphAt(dom.childAt(element7, [5]), 0, 0);
-        morphs[9] = dom.createElementMorph(element9);
+        morphs[4] = dom.createMorphAt(dom.childAt(element3, [3]), 0, 0);
+        morphs[5] = dom.createElementMorph(element5);
+        morphs[6] = dom.createAttrMorph(element6, 'class');
+        morphs[7] = dom.createElementMorph(element8);
+        morphs[8] = dom.createMorphAt(dom.childAt(element7, [3]), 0, 0);
+        morphs[9] = dom.createMorphAt(dom.childAt(element7, [5]), 0, 0);
+        morphs[10] = dom.createElementMorph(element9);
+        morphs[11] = dom.createMorphAt(dom.childAt(element7, [9]), 1, 1);
         return morphs;
       },
-      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "activeTeam", ["loc", [null, [2, 28], [2, 38]]]], " flex-center"]]], ["content", "aRandomLyric", ["loc", [null, [3, 8], [3, 24]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["element", "action", ["resetTimer"], [], ["loc", [null, [10, 52], [10, 75]]]], ["element", "action", ["toggleTimer"], [], ["loc", [null, [12, 52], [12, 76]]]], ["attribute", "class", ["concat", ["glyphicon ", ["get", "timerIconState", ["loc", [null, [12, 102], [12, 116]]]]]]], ["element", "action", ["decrementScore"], [], ["loc", [null, [17, 52], [17, 79]]]], ["content", "blueScore", ["loc", [null, [19, 40], [19, 53]]]], ["content", "redScore", ["loc", [null, [20, 39], [20, 51]]]], ["element", "action", ["incrementScore"], [], ["loc", [null, [22, 52], [22, 79]]]]],
+      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "teams.active", ["loc", [null, [2, 28], [2, 40]]]], " flex-center"]]], ["content", "aRandomLyric", ["loc", [null, [3, 8], [3, 24]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["element", "action", ["resetTimer"], [], ["loc", [null, [10, 52], [10, 75]]]], ["content", "timer.seconds", ["loc", [null, [11, 52], [11, 69]]]], ["element", "action", ["toggleTimer"], [], ["loc", [null, [12, 52], [12, 76]]]], ["attribute", "class", ["concat", ["glyphicon ", ["get", "timer.iconState", ["loc", [null, [12, 102], [12, 117]]]]]]], ["element", "action", ["wrongAnswer"], [], ["loc", [null, [17, 52], [17, 76]]]], ["content", "teams.blueScore", ["loc", [null, [19, 40], [19, 59]]]], ["content", "teams.redScore", ["loc", [null, [20, 39], [20, 57]]]], ["element", "action", ["correctAnswer"], [], ["loc", [null, [22, 52], [22, 78]]]], ["content", "teams.rounds", ["loc", [null, [25, 54], [25, 70]]]]],
       locals: [],
       templates: []
     };
@@ -5305,7 +5365,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+d4e54a79"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+d97b5a55"});
 }
 
 /* jshint ignore:end */

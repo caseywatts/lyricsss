@@ -1,5 +1,5 @@
 <div class="fullscreen flex-center">
-  <div class="lyrics-card {{activeTeam}} flex-center">
+  <div class="lyrics-card {{teams.active}} flex-center">
     <h1>{{aRandomLyric}}</h1>
   </div>
   <div class="button-card flex-row">
@@ -8,19 +8,20 @@
   <div class="button-card flex-row">
     <div class="btn-group-lg" role="group" aria-label="...">
       <button type="button" class="btn btn-default" {{action "resetTimer"}}><span class="glyphicon glyphicon-repeat"></span></button>
-      <button type="button" class="btn btn-default timer"></button>
-      <button type="button" class="btn btn-default" {{action "toggleTimer"}}><span class="glyphicon {{timerIconState}}"></span></button>
+      <button type="button" class="btn btn-default">{{timer.seconds}}</button>
+      <button type="button" class="btn btn-default" {{action "toggleTimer"}}><span class="glyphicon {{timer.iconState}}"></span></button>
     </div>
   </div>
   <div class="button-card flex-row">
     <div class="btn-group-lg" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" {{action "decrementScore"}}><span class="glyphicon glyphicon-thumbs-down"></span></button>
+      <button type="button" class="btn btn-default" {{action "wrongAnswer"}}><span class="glyphicon glyphicon-remove"></span></button>
     </div>
-    <span class="label team-label blue">{{blueScore}}</span>
-    <span class="label team-label red">{{redScore}}</span>
+    <span class="label team-label blue">{{teams.blueScore}}</span>
+    <span class="label team-label red">{{teams.redScore}}</span>
     <div class="btn-group-lg" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" {{action "incrementScore"}}><span class="glyphicon glyphicon-thumbs-up"></span></button>
+      <button type="button" class="btn btn-default" {{action "correctAnswer"}}><span class="glyphicon glyphicon-ok"></span></button>
       <!--<button type="button" class="btn btn-default" {{action "nextTeam"}}><span class="glyphicon glyphicon-arrow-right"></span></button>-->
     </div>
+    <span class="label team-label label-info">Rounds: {{teams.rounds}}</span>
   </div>
 </div>

@@ -6465,6 +6465,32 @@ jQuery(document).ready(function() {
   }, 250);
 });
 
+/* globals self */
+if (self.QUnit) {
+  self.QUnit.config.urlConfig.push({ id: 'nojscs', label: 'Disable JSCS' });
+}
+
+/* globals requirejs, jQuery, QUnit */
+
+jQuery(document).ready(function () {
+  var testLoaderModulePath = 'ember-cli-test-loader/test-support/index';
+  if (!requirejs.entries[testLoaderModulePath]) {
+    testLoaderModulePath = 'ember-cli/test-loader';
+  }
+
+  var TestLoaderModule = require(testLoaderModulePath);
+  var addModuleExcludeMatcher = TestLoaderModule['addModuleExcludeMatcher'];
+
+  function isJscsDisabled() { return typeof QUnit === 'undefined' ? false : QUnit.urlParams.nojscs; }
+  function isAJscsTest(moduleName) { return moduleName.match(/\.jscs-test$/); }
+  function jscsModuleMatcher(moduleName) { return isJscsDisabled() && isAJscsTest(moduleName); }
+
+  if (addModuleExcludeMatcher) {
+    addModuleExcludeMatcher(jscsModuleMatcher);
+  }
+
+});
+
 define('ember-qunit', ['exports', 'ember-qunit/module-for', 'ember-qunit/module-for-component', 'ember-qunit/module-for-model', 'ember-qunit/test', 'ember-qunit/only', 'ember-qunit/skip', 'ember-test-helpers'], function (exports, _emberQunitModuleFor, _emberQunitModuleForComponent, _emberQunitModuleForModel, _emberQunitTest, _emberQunitOnly, _emberQunitSkip, _emberTestHelpers) {
   'use strict';
 
