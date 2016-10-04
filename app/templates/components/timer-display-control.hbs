@@ -1,0 +1,7 @@
+<div class="button-card flex-row">
+  <div class="btn-group-lg" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" {{action "resetTimer"}}><span class="glyphicon glyphicon-repeat"></span></button>
+    <button type="button" class="btn btn-default">{{timer.seconds}}</button>
+    <button type="button" class="btn btn-default" {{action "toggleTimer"}}><span class="glyphicon {{timer.iconState}}"></span></button>
+  </div>
+</div>

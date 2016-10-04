@@ -19,12 +19,6 @@ export default Ember.Component.extend({
       this.changeWord();
       this.get('timer').reset();
     },
-    resetTimer() {
-      this.get('timer').reset();
-    },
-    toggleTimer() {
-      this.get('timer').toggle();
-    },
     wrongAnswer() {
       this.get('wordHistory').add(
         this.get('aRandomLyric'),

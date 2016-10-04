@@ -301,12 +301,6 @@ define('lyricsss/components/gameplay-elements', ['exports', 'ember'], function (
         this.changeWord();
         this.get('timer').reset();
       },
-      resetTimer: function resetTimer() {
-        this.get('timer').reset();
-      },
-      toggleTimer: function toggleTimer() {
-        this.get('timer').toggle();
-      },
       wrongAnswer: function wrongAnswer() {
         this.get('wordHistory').add(this.get('aRandomLyric'), this.get('teams').get('active'), false, this.get('timer').get('elapsedTime'));
         this.changeWord();
@@ -356,6 +350,19 @@ define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (export
         return Math.random() - 0.5;
       });
     }
+  });
+});
+define('lyricsss/components/timer-display-control', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    actions: {
+      resetTimer: function resetTimer() {
+        this.get('timer').reset();
+      },
+      toggleTimer: function toggleTimer() {
+        this.get('timer').toggle();
+      }
+    },
+    timer: _ember['default'].inject.service('timer-control')
   });
 });
 define('lyricsss/components/top-layout', ['exports', 'ember'], function (exports, _ember) {
@@ -4689,7 +4696,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
             "column": 0
           },
           "end": {
-            "line": 28,
+            "line": 22,
             "column": 0
           }
         },
@@ -4733,44 +4740,7 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2, "class", "button-card flex-row");
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3, "class", "btn-group-lg");
-        dom.setAttribute(el3, "role", "group");
-        dom.setAttribute(el3, "aria-label", "...");
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4, "type", "button");
-        dom.setAttribute(el4, "class", "btn btn-default");
-        var el5 = dom.createElement("span");
-        dom.setAttribute(el5, "class", "glyphicon glyphicon-repeat");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4, "type", "button");
-        dom.setAttribute(el4, "class", "btn btn-default");
-        var el5 = dom.createComment("");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n      ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4, "type", "button");
-        dom.setAttribute(el4, "class", "btn btn-default");
-        var el5 = dom.createElement("span");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
-        dom.appendChild(el2, el3);
+        var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n  ");
         dom.appendChild(el1, el2);
@@ -4853,29 +4823,22 @@ define("lyricsss/templates/components/gameplay-elements", ["exports"], function 
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [1]);
         var element2 = dom.childAt(element0, [3, 1]);
-        var element3 = dom.childAt(element0, [5, 1]);
-        var element4 = dom.childAt(element3, [1]);
-        var element5 = dom.childAt(element3, [5]);
-        var element6 = dom.childAt(element5, [0]);
-        var element7 = dom.childAt(element0, [7]);
-        var element8 = dom.childAt(element7, [1, 1]);
-        var element9 = dom.childAt(element7, [7, 1]);
-        var morphs = new Array(12);
+        var element3 = dom.childAt(element0, [7]);
+        var element4 = dom.childAt(element3, [1, 1]);
+        var element5 = dom.childAt(element3, [7, 1]);
+        var morphs = new Array(9);
         morphs[0] = dom.createAttrMorph(element1, 'class');
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [1]), 0, 0);
         morphs[2] = dom.createElementMorph(element2);
-        morphs[3] = dom.createElementMorph(element4);
-        morphs[4] = dom.createMorphAt(dom.childAt(element3, [3]), 0, 0);
-        morphs[5] = dom.createElementMorph(element5);
-        morphs[6] = dom.createAttrMorph(element6, 'class');
-        morphs[7] = dom.createElementMorph(element8);
-        morphs[8] = dom.createMorphAt(dom.childAt(element7, [3]), 0, 0);
-        morphs[9] = dom.createMorphAt(dom.childAt(element7, [5]), 0, 0);
-        morphs[10] = dom.createElementMorph(element9);
-        morphs[11] = dom.createMorphAt(dom.childAt(element7, [9]), 1, 1);
+        morphs[3] = dom.createMorphAt(element0, 5, 5);
+        morphs[4] = dom.createElementMorph(element4);
+        morphs[5] = dom.createMorphAt(dom.childAt(element3, [3]), 0, 0);
+        morphs[6] = dom.createMorphAt(dom.childAt(element3, [5]), 0, 0);
+        morphs[7] = dom.createElementMorph(element5);
+        morphs[8] = dom.createMorphAt(dom.childAt(element3, [9]), 1, 1);
         return morphs;
       },
-      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "teams.active", ["loc", [null, [2, 28], [2, 40]]]], " flex-center"]]], ["content", "aRandomLyric", ["loc", [null, [3, 8], [3, 24]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["element", "action", ["resetTimer"], [], ["loc", [null, [10, 52], [10, 75]]]], ["content", "timer.seconds", ["loc", [null, [11, 52], [11, 69]]]], ["element", "action", ["toggleTimer"], [], ["loc", [null, [12, 52], [12, 76]]]], ["attribute", "class", ["concat", ["glyphicon ", ["get", "timer.iconState", ["loc", [null, [12, 102], [12, 117]]]]]]], ["element", "action", ["wrongAnswer"], [], ["loc", [null, [17, 52], [17, 76]]]], ["content", "teams.blueScore", ["loc", [null, [19, 40], [19, 59]]]], ["content", "teams.redScore", ["loc", [null, [20, 39], [20, 57]]]], ["element", "action", ["correctAnswer"], [], ["loc", [null, [22, 52], [22, 78]]]], ["content", "teams.rounds", ["loc", [null, [25, 54], [25, 70]]]]],
+      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "teams.active", ["loc", [null, [2, 28], [2, 40]]]], " flex-center"]]], ["content", "aRandomLyric", ["loc", [null, [3, 8], [3, 24]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["content", "timer-display-control", ["loc", [null, [8, 2], [8, 27]]]], ["element", "action", ["wrongAnswer"], [], ["loc", [null, [11, 52], [11, 76]]]], ["content", "teams.blueScore", ["loc", [null, [13, 40], [13, 59]]]], ["content", "teams.redScore", ["loc", [null, [14, 39], [14, 57]]]], ["element", "action", ["correctAnswer"], [], ["loc", [null, [16, 52], [16, 78]]]], ["content", "teams.rounds", ["loc", [null, [19, 54], [19, 70]]]]],
       locals: [],
       templates: []
     };
@@ -5089,6 +5052,92 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
       statements: [["block", "if", [["get", "showSplashScreen", ["loc", [null, [1, 6], [1, 22]]]]], [], 0, null, ["loc", [null, [1, 0], [16, 7]]]], ["block", "if", [["get", "showCards", ["loc", [null, [18, 6], [18, 15]]]]], [], 1, null, ["loc", [null, [18, 0], [24, 7]]]]],
       locals: [],
       templates: [child0, child1]
+    };
+  })());
+});
+define("lyricsss/templates/components/timer-display-control", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.2",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 6
+          }
+        },
+        "moduleName": "lyricsss/templates/components/timer-display-control.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "button-card flex-row");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "btn-group-lg");
+        dom.setAttribute(el2, "role", "group");
+        dom.setAttribute(el2, "aria-label", "...");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "type", "button");
+        dom.setAttribute(el3, "class", "btn btn-default");
+        var el4 = dom.createElement("span");
+        dom.setAttribute(el4, "class", "glyphicon glyphicon-repeat");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "type", "button");
+        dom.setAttribute(el3, "class", "btn btn-default");
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "type", "button");
+        dom.setAttribute(el3, "class", "btn btn-default");
+        var el4 = dom.createElement("span");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0, 1]);
+        var element1 = dom.childAt(element0, [1]);
+        var element2 = dom.childAt(element0, [5]);
+        var element3 = dom.childAt(element2, [0]);
+        var morphs = new Array(4);
+        morphs[0] = dom.createElementMorph(element1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 0, 0);
+        morphs[2] = dom.createElementMorph(element2);
+        morphs[3] = dom.createAttrMorph(element3, 'class');
+        return morphs;
+      },
+      statements: [["element", "action", ["resetTimer"], [], ["loc", [null, [3, 50], [3, 73]]]], ["content", "timer.seconds", ["loc", [null, [4, 50], [4, 67]]]], ["element", "action", ["toggleTimer"], [], ["loc", [null, [5, 50], [5, 74]]]], ["attribute", "class", ["concat", ["glyphicon ", ["get", "timer.iconState", ["loc", [null, [5, 100], [5, 115]]]]]]]],
+      locals: [],
+      templates: []
     };
   })());
 });
@@ -5365,7 +5414,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+d97b5a55"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+c1df50d6"});
 }
 
 /* jshint ignore:end */

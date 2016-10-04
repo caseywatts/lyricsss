@@ -5,13 +5,7 @@
   <div class="button-card flex-row">
     <button type="button" class="btn btn-default" {{action "nextWord"}}><span class="glyphicon glyphicon-fast-forward"></span></button>
   </div>
-  <div class="button-card flex-row">
-    <div class="btn-group-lg" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" {{action "resetTimer"}}><span class="glyphicon glyphicon-repeat"></span></button>
-      <button type="button" class="btn btn-default">{{timer.seconds}}</button>
-      <button type="button" class="btn btn-default" {{action "toggleTimer"}}><span class="glyphicon {{timer.iconState}}"></span></button>
-    </div>
-  </div>
+  {{timer-display-control}}
   <div class="button-card flex-row">
     <div class="btn-group-lg" role="group" aria-label="...">
       <button type="button" class="btn btn-default" {{action "wrongAnswer"}}><span class="glyphicon glyphicon-remove"></span></button>
