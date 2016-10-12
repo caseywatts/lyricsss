@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   actions: {
     correctAnswer() {
       this.get('wordHistory').add(
-        this.get('aRandomLyric'),
+        this.get('wordHistory').get('currentWord'),
         this.get('teams').get('active'),
         true,
         this.get('timer').get('elapsedTime')
@@ -17,7 +17,7 @@ export default Ember.Component.extend({
     },
     wrongAnswer() {
       this.get('wordHistory').add(
-        this.get('aRandomLyric'),
+        this.get('wordHistory').get('currentWord'),
         this.get('teams').get('active'),
         false,
         this.get('timer').get('elapsedTime')

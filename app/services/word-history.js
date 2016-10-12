@@ -1,34 +1,27 @@
 import Ember from 'ember';
+import PastWord from 'lyricsss/models/past-word';
 
 export default Ember.Service.extend({
   add(word, team, answerCorrect, time) {
-    this.get('list').pushObject(new PastWord(word, team, answerCorrect, time));
+    this.get('pastWords').pushObject(PastWord.create({
+      word,
+      team,
+      answerCorrect,
+      time
+    }));
   },
   changeWord() {
-    let aRandomLyric = this.get('wordList').pop();
-    this.set('aRandomLyric', aRandomLyric);
+    let currentWord = this.get('upcomingWords').pop();
+    this.set('currentWord', currentWord);
   },
-  initialize(wordList) {
-    wordList.sort(function() {
+  // Must call this before any other functions. Feed it the word list.
+  initialize(upcomingWords) {
+    upcomingWords.sort(function() {
       return Math.random() - 0.5;
     });
-    this.set('wordList', wordList);
+    this.set('upcomingWords', upcomingWords);
     this.changeWord();
   },
-  list: [],
-  wordList: []
+  pastWords: [],
+  upcomingWords: []
 });
-
-// Data structure containing information about each word tried
-class PastWord {
-  constructor(word, team, answerCorrect, time) {
-    // string
-    this.word = word;
-    // string
-    this.team = team;
-    // boolean
-    this.answerCorrect = answerCorrect;
-    // string
-    this.time = time;
-  }
-}

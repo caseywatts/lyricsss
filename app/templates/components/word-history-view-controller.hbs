@@ -1,0 +1,8 @@
+<ul class="list-group">
+  {{#each wordHistory.pastWords as |entry|}}
+    <li class="list-group-item {{entry.team}}">
+      <span class="{{entry.correctnessGlyphicon}}"></span>
+      {{entry.word}}
+    </li>
+  {{/each}}
+</ul>
