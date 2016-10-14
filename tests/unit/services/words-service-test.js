@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('service:word-history', 'Unit | Service | word history', {
+moduleFor('service:word-service', 'Unit | Service | word history', {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
 });

@@ -9,5 +9,5 @@ export default Ember.Component.extend({
       this.get('timer').toggle();
     }
   },
-  timer: Ember.inject.service('timer-control')
+  timer: Ember.inject.service('timer-service')
 });

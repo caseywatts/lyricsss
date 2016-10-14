@@ -28,7 +28,7 @@ export default Ember.Component.extend({
       this.get('teams').updateRoundCounter();
     }
   },
-  teams: Ember.inject.service('team-tracking'),
-  timer: Ember.inject.service('timer-control'),
-  wordHistory: Ember.inject.service('word-history')
+  teams: Ember.inject.service('team-service'),
+  timer: Ember.inject.service('timer-service'),
+  wordHistory: Ember.inject.service('word-service')
 });

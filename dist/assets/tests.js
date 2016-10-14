@@ -16,76 +16,40 @@ define('lyricsss/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
-define('lyricsss/tests/components/gameplay-elements.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/components/team-component.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - components/gameplay-elements.js');
+  QUnit.module('JSCS - components/team-component.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/gameplay-elements.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/gameplay-elements.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  actions: {\n     5 |    nextWord() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/gameplay-elements.js :\n    12 |    this.get(\'wordHistory\').initialize(this.get(\'someWords\'));\n    13 |  },\n    14 |  teams: Ember.inject.service(\'team-tracking\'),\n-----------------------^\n    15 |  timer: Ember.inject.service(\'timer-control\'),\n    16 |  wordHistory: Ember.inject.service(\'word-history\')\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/gameplay-elements.js :\n    13 |  },\n    14 |  teams: Ember.inject.service(\'team-tracking\'),\n    15 |  timer: Ember.inject.service(\'timer-control\'),\n-----------------------^\n    16 |  wordHistory: Ember.inject.service(\'word-history\')\n    17 |});\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/gameplay-elements.js :\n    14 |  teams: Ember.inject.service(\'team-tracking\'),\n    15 |  timer: Ember.inject.service(\'timer-control\'),\n    16 |  wordHistory: Ember.inject.service(\'word-history\')\n-----------------------------^\n    17 |});');
+    assert.ok(false, 'components/team-component.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/team-component.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  actions: {\n     5 |    correctAnswer() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/team-component.js :\n    29 |    }\n    30 |  },\n    31 |  teams: Ember.inject.service(\'team-service\'),\n-----------------------^\n    32 |  timer: Ember.inject.service(\'timer-service\'),\n    33 |  wordHistory: Ember.inject.service(\'word-service\')\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/team-component.js :\n    30 |  },\n    31 |  teams: Ember.inject.service(\'team-service\'),\n    32 |  timer: Ember.inject.service(\'timer-service\'),\n-----------------------^\n    33 |  wordHistory: Ember.inject.service(\'word-service\')\n    34 |});\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/team-component.js :\n    31 |  teams: Ember.inject.service(\'team-service\'),\n    32 |  timer: Ember.inject.service(\'timer-service\'),\n    33 |  wordHistory: Ember.inject.service(\'word-service\')\n-----------------------------^\n    34 |});\n    35 |');
   });
 });
-define('lyricsss/tests/components/gameplay-elements.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/components/team-component.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | components/gameplay-elements.js');
+  QUnit.module('JSHint | components/team-component.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/gameplay-elements.js should pass jshint.');
+    assert.ok(true, 'components/team-component.js should pass jshint.');
   });
 });
-define('lyricsss/tests/components/lyrics-card.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/components/timer-component.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - components/lyrics-card.js');
+  QUnit.module('JSCS - components/timer-component.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/lyrics-card.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/lyrics-card.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  init() {\n     5 |    this._super(...arguments);\ndisallowSpacesInFunction: Illegal space before opening round brace at components/lyrics-card.js :\n    21 |  },\n    22 |  randomize(words) {\n    23 |    return words.sort(function () {\n--------------------------------------^\n    24 |      return Math.random() - 0.5;\n    25 |    });');
+    assert.ok(false, 'components/timer-component.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/timer-component.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  actions: {\n     5 |    resetTimer() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/timer-component.js :\n    10 |    }\n    11 |  },\n    12 |  timer: Ember.inject.service(\'timer-service\')\n-----------------------^\n    13 |});\n    14 |');
   });
 });
-define('lyricsss/tests/components/lyrics-card.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/components/timer-component.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | components/lyrics-card.js');
+  QUnit.module('JSHint | components/timer-component.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/lyrics-card.js should pass jshint.');
-  });
-});
-define('lyricsss/tests/components/teams-display-control.jscs-test', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSCS - components/teams-display-control.js');
-  QUnit.test('should pass jscs', function (assert) {
-    assert.expect(1);
-    assert.ok(false, 'components/teams-display-control.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/teams-display-control.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  actions: {\n     5 |    correctAnswer() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/teams-display-control.js :\n    29 |    }\n    30 |  },\n    31 |  teams: Ember.inject.service(\'team-tracking\'),\n-----------------------^\n    32 |  timer: Ember.inject.service(\'timer-control\'),\n    33 |  wordHistory: Ember.inject.service(\'word-history\')\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/teams-display-control.js :\n    30 |  },\n    31 |  teams: Ember.inject.service(\'team-tracking\'),\n    32 |  timer: Ember.inject.service(\'timer-control\'),\n-----------------------^\n    33 |  wordHistory: Ember.inject.service(\'word-history\')\n    34 |});\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/teams-display-control.js :\n    31 |  teams: Ember.inject.service(\'team-tracking\'),\n    32 |  timer: Ember.inject.service(\'timer-control\'),\n    33 |  wordHistory: Ember.inject.service(\'word-history\')\n-----------------------------^\n    34 |});\n    35 |');
-  });
-});
-define('lyricsss/tests/components/teams-display-control.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | components/teams-display-control.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'components/teams-display-control.js should pass jshint.');
-  });
-});
-define('lyricsss/tests/components/timer-display-control.jscs-test', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSCS - components/timer-display-control.js');
-  QUnit.test('should pass jscs', function (assert) {
-    assert.expect(1);
-    assert.ok(false, 'components/timer-display-control.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/timer-display-control.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  actions: {\n     5 |    resetTimer() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/timer-display-control.js :\n    10 |    }\n    11 |  },\n    12 |  timer: Ember.inject.service(\'timer-control\')\n-----------------------^\n    13 |});\n    14 |');
-  });
-});
-define('lyricsss/tests/components/timer-display-control.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | components/timer-display-control.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'components/timer-display-control.js should pass jshint.');
+    assert.ok(true, 'components/timer-component.js should pass jshint.');
   });
 });
 define('lyricsss/tests/components/top-layout.jscs-test', ['exports'], function (exports) {
@@ -94,7 +58,7 @@ define('lyricsss/tests/components/top-layout.jscs-test', ['exports'], function (
   QUnit.module('JSCS - components/top-layout.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/top-layout.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/top-layout.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  init() {\n     5 |    this._super(...arguments);');
+    assert.ok(false, 'components/top-layout.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/top-layout.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  actions: {\n     5 |    nextWord() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/top-layout.js :\n    27 |    this.click();\n    28 |  },\n    29 |  teams: Ember.inject.service(\'team-service\'),\n-----------------------^\n    30 |  timer: Ember.inject.service(\'timer-service\'),\n    31 |  wordHistory: Ember.inject.service(\'word-service\')\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/top-layout.js :\n    28 |  },\n    29 |  teams: Ember.inject.service(\'team-service\'),\n    30 |  timer: Ember.inject.service(\'timer-service\'),\n-----------------------^\n    31 |  wordHistory: Ember.inject.service(\'word-service\')\n    32 |});\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/top-layout.js :\n    29 |  teams: Ember.inject.service(\'team-service\'),\n    30 |  timer: Ember.inject.service(\'timer-service\'),\n    31 |  wordHistory: Ember.inject.service(\'word-service\')\n-----------------------------^\n    32 |});\n    33 |');
   });
 });
 define('lyricsss/tests/components/top-layout.jshint', ['exports'], function (exports) {
@@ -106,22 +70,22 @@ define('lyricsss/tests/components/top-layout.jshint', ['exports'], function (exp
     assert.ok(true, 'components/top-layout.js should pass jshint.');
   });
 });
-define('lyricsss/tests/components/word-history-view-controller.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/components/word-history.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - components/word-history-view-controller.js');
+  QUnit.module('JSCS - components/word-history.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/word-history-view-controller.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/word-history-view-controller.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  wordHistory: Ember.inject.service(\'word-history\'),\n     5 |});\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/word-history-view-controller.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  wordHistory: Ember.inject.service(\'word-history\'),\n-----------------------------^\n     5 |});\n     6 |\ndisallowTrailingComma: Extra comma following the final element of an array or object literal at components/word-history-view-controller.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  wordHistory: Ember.inject.service(\'word-history\'),\n-----------------------------------------------------------^\n     5 |});\n     6 |');
+    assert.ok(false, 'components/word-history.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/word-history.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  wordHistory: Ember.inject.service(\'word-service\'),\n     5 |});\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/word-history.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  wordHistory: Ember.inject.service(\'word-service\'),\n-----------------------------^\n     5 |});\n     6 |\ndisallowTrailingComma: Extra comma following the final element of an array or object literal at components/word-history.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  wordHistory: Ember.inject.service(\'word-service\'),\n-----------------------------------------------------------^\n     5 |});\n     6 |');
   });
 });
-define('lyricsss/tests/components/word-history-view-controller.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/components/word-history.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | components/word-history-view-controller.js');
+  QUnit.module('JSHint | components/word-history.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/word-history-view-controller.js should pass jshint.');
+    assert.ok(true, 'components/word-history.js should pass jshint.');
   });
 });
 define('lyricsss/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
@@ -258,325 +222,9 @@ define('lyricsss/tests/helpers/start-app.jshint', ['exports'], function (exports
     assert.ok(true, 'helpers/start-app.js should pass jshint.');
   });
 });
-define('lyricsss/tests/integration/components/gameplay-elements-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('lyricsss/tests/integration/components/team-component-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleForComponent)('gameplay-elements', 'Integration | Component | gameplay elements', {
-    integration: true
-  });
-
-  (0, _emberQunit.test)('it renders', function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    this.render(Ember.HTMLBars.template((function () {
-      return {
-        meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.2',
-          'loc': {
-            'source': null,
-            'start': {
-              'line': 1,
-              'column': 0
-            },
-            'end': {
-              'line': 1,
-              'column': 21
-            }
-          }
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createComment('');
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-          dom.insertBoundary(fragment, 0);
-          dom.insertBoundary(fragment, null);
-          return morphs;
-        },
-        statements: [['content', 'gameplay-elements', ['loc', [null, [1, 0], [1, 21]]]]],
-        locals: [],
-        templates: []
-      };
-    })()));
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
-    this.render(Ember.HTMLBars.template((function () {
-      var child0 = (function () {
-        return {
-          meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.2',
-            'loc': {
-              'source': null,
-              'start': {
-                'line': 2,
-                'column': 4
-              },
-              'end': {
-                'line': 4,
-                'column': 4
-              }
-            }
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode('      template block text\n');
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes() {
-            return [];
-          },
-          statements: [],
-          locals: [],
-          templates: []
-        };
-      })();
-
-      return {
-        meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.2',
-          'loc': {
-            'source': null,
-            'start': {
-              'line': 1,
-              'column': 0
-            },
-            'end': {
-              'line': 5,
-              'column': 2
-            }
-          }
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode('\n');
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment('');
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode('  ');
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
-          return morphs;
-        },
-        statements: [['block', 'gameplay-elements', [], [], 0, null, ['loc', [null, [2, 4], [4, 26]]]]],
-        locals: [],
-        templates: [child0]
-      };
-    })()));
-
-    assert.equal(this.$().text().trim(), 'template block text');
-  });
-});
-define('lyricsss/tests/integration/components/gameplay-elements-test.jscs-test', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSCS - integration/components/gameplay-elements-test.js');
-  QUnit.test('should pass jscs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/components/gameplay-elements-test.js should pass jscs.');
-  });
-});
-define('lyricsss/tests/integration/components/gameplay-elements-test.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | integration/components/gameplay-elements-test.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/components/gameplay-elements-test.js should pass jshint.');
-  });
-});
-define('lyricsss/tests/integration/components/lyrics-card-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
-
-  (0, _emberQunit.moduleForComponent)('lyrics-card', 'Integration | Component | lyrics card', {
-    integration: true
-  });
-
-  (0, _emberQunit.test)('it renders', function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    this.render(Ember.HTMLBars.template((function () {
-      return {
-        meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.2',
-          'loc': {
-            'source': null,
-            'start': {
-              'line': 1,
-              'column': 0
-            },
-            'end': {
-              'line': 1,
-              'column': 15
-            }
-          }
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createComment('');
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-          dom.insertBoundary(fragment, 0);
-          dom.insertBoundary(fragment, null);
-          return morphs;
-        },
-        statements: [['content', 'lyrics-card', ['loc', [null, [1, 0], [1, 15]]]]],
-        locals: [],
-        templates: []
-      };
-    })()));
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
-    this.render(Ember.HTMLBars.template((function () {
-      var child0 = (function () {
-        return {
-          meta: {
-            'fragmentReason': false,
-            'revision': 'Ember@2.6.2',
-            'loc': {
-              'source': null,
-              'start': {
-                'line': 2,
-                'column': 4
-              },
-              'end': {
-                'line': 4,
-                'column': 4
-              }
-            }
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode('      template block text\n');
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes() {
-            return [];
-          },
-          statements: [],
-          locals: [],
-          templates: []
-        };
-      })();
-
-      return {
-        meta: {
-          'fragmentReason': {
-            'name': 'missing-wrapper',
-            'problems': ['wrong-type']
-          },
-          'revision': 'Ember@2.6.2',
-          'loc': {
-            'source': null,
-            'start': {
-              'line': 1,
-              'column': 0
-            },
-            'end': {
-              'line': 5,
-              'column': 2
-            }
-          }
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode('\n');
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment('');
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode('  ');
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
-          return morphs;
-        },
-        statements: [['block', 'lyrics-card', [], [], 0, null, ['loc', [null, [2, 4], [4, 20]]]]],
-        locals: [],
-        templates: [child0]
-      };
-    })()));
-
-    assert.equal(this.$().text().trim(), 'template block text');
-  });
-});
-define('lyricsss/tests/integration/components/lyrics-card-test.jscs-test', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSCS - integration/components/lyrics-card-test.js');
-  QUnit.test('should pass jscs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/components/lyrics-card-test.js should pass jscs.');
-  });
-});
-define('lyricsss/tests/integration/components/lyrics-card-test.jshint', ['exports'], function (exports) {
-  'use strict';
-
-  QUnit.module('JSHint | integration/components/lyrics-card-test.js');
-  QUnit.test('should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/components/lyrics-card-test.js should pass jshint.');
-  });
-});
-define('lyricsss/tests/integration/components/teams-display-control-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
-
-  (0, _emberQunit.moduleForComponent)('teams-display-control', 'Integration | Component | teams display control', {
+  (0, _emberQunit.moduleForComponent)('team-component', 'Integration | Component | teams display control', {
     integration: true
   });
 
@@ -714,27 +362,27 @@ define('lyricsss/tests/integration/components/teams-display-control-test', ['exp
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('lyricsss/tests/integration/components/teams-display-control-test.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/integration/components/team-component-test.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - integration/components/teams-display-control-test.js');
+  QUnit.module('JSCS - integration/components/team-component-test.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/teams-display-control-test.js should pass jscs.');
+    assert.ok(true, 'integration/components/team-component-test.js should pass jscs.');
   });
 });
-define('lyricsss/tests/integration/components/teams-display-control-test.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/integration/components/team-component-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | integration/components/teams-display-control-test.js');
+  QUnit.module('JSHint | integration/components/team-component-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/teams-display-control-test.js should pass jshint.');
+    assert.ok(true, 'integration/components/team-component-test.js should pass jshint.');
   });
 });
-define('lyricsss/tests/integration/components/timer-display-control-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('lyricsss/tests/integration/components/timer-component-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleForComponent)('timer-display-control', 'Integration | Component | timer display control', {
+  (0, _emberQunit.moduleForComponent)('timer-component', 'Integration | Component | timer display control', {
     integration: true
   });
 
@@ -872,22 +520,22 @@ define('lyricsss/tests/integration/components/timer-display-control-test', ['exp
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('lyricsss/tests/integration/components/timer-display-control-test.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/integration/components/timer-component-test.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - integration/components/timer-display-control-test.js');
+  QUnit.module('JSCS - integration/components/timer-component-test.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/timer-display-control-test.js should pass jscs.');
+    assert.ok(true, 'integration/components/timer-component-test.js should pass jscs.');
   });
 });
-define('lyricsss/tests/integration/components/timer-display-control-test.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/integration/components/timer-component-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | integration/components/timer-display-control-test.js');
+  QUnit.module('JSHint | integration/components/timer-component-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/timer-display-control-test.js should pass jshint.');
+    assert.ok(true, 'integration/components/timer-component-test.js should pass jshint.');
   });
 });
 define('lyricsss/tests/integration/components/top-layout-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -1048,9 +696,9 @@ define('lyricsss/tests/integration/components/top-layout-test.jshint', ['exports
     assert.ok(true, 'integration/components/top-layout-test.js should pass jshint.');
   });
 });
-define('lyricsss/tests/integration/components/word-history-view-controller-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('lyricsss/tests/integration/components/word-history-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleForComponent)('word-history-view-controller', 'Integration | Component | word history view controller', {
+  (0, _emberQunit.moduleForComponent)('word-history', 'Integration | Component | word history view controller', {
     integration: true
   });
 
@@ -1188,22 +836,22 @@ define('lyricsss/tests/integration/components/word-history-view-controller-test'
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('lyricsss/tests/integration/components/word-history-view-controller-test.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/integration/components/word-history-test.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - integration/components/word-history-view-controller-test.js');
+  QUnit.module('JSCS - integration/components/word-history-test.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/word-history-view-controller-test.js should pass jscs.');
+    assert.ok(true, 'integration/components/word-history-test.js should pass jscs.');
   });
 });
-define('lyricsss/tests/integration/components/word-history-view-controller-test.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/integration/components/word-history-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | integration/components/word-history-view-controller-test.js');
+  QUnit.module('JSHint | integration/components/word-history-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/word-history-view-controller-test.js should pass jshint.');
+    assert.ok(true, 'integration/components/word-history-test.js should pass jshint.');
   });
 });
 define('lyricsss/tests/models/past-word.jscs-test', ['exports'], function (exports) {
@@ -1278,58 +926,58 @@ define('lyricsss/tests/routes/main.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/main.js should pass jshint.');
   });
 });
-define('lyricsss/tests/services/team-tracking.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/services/team-service.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - services/team-tracking.js');
+  QUnit.module('JSCS - services/team-service.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/team-tracking.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Service directly at services/team-tracking.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Service.extend({\n------------------------------^\n     4 |  active: \'blue\',\n     5 |  blueScore: 0,');
+    assert.ok(false, 'services/team-service.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Service directly at services/team-service.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Service.extend({\n------------------------------^\n     4 |  active: \'blue\',\n     5 |  blueScore: 0,');
   });
 });
-define('lyricsss/tests/services/team-tracking.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/services/team-service.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | services/team-tracking.js');
+  QUnit.module('JSHint | services/team-service.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'services/team-tracking.js should pass jshint.');
+    assert.ok(true, 'services/team-service.js should pass jshint.');
   });
 });
-define('lyricsss/tests/services/timer-control.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/services/timer-service.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - services/timer-control.js');
+  QUnit.module('JSCS - services/timer-service.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/timer-control.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Service directly at services/timer-control.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Service.extend({\n------------------------------^\n     4 |  _countdown() {\n     5 |    if (this.get(\'seconds\') === 0) {\ndisallowDirectPropertyAccess: Avoid accessing Ember.run directly at services/timer-control.js :\n     7 |    } else {\n     8 |      this.incrementProperty(\'seconds\', -1);\n     9 |      this._timer = Ember.run.later(this, \'_countdown\', 1000);\n---------------------------------^\n    10 |    }\n    11 |  },\ndisallowDirectPropertyAccess: Avoid accessing Ember.run directly at services/timer-control.js :\n    16 |  timeUp: false,\n    17 |  pause() {\n    18 |    Ember.run.cancel(this.get(\'_timer\'));\n-----------------^\n    19 |    this.set(\'_timer\', null);\n    20 |    this.set(\'iconState\', \'glyphicon-play\');\ndisallowDirectPropertyAccess: Avoid accessing Ember.run directly at services/timer-control.js :\n    21 |  },\n    22 |  reset() {\n    23 |    Ember.run.cancel(this.get(\'_timer\'));\n-----------------^\n    24 |    this.set(\'seconds\', this.get(\'timeLimit\') + 1);\n    25 |    this._countdown();\ndisallowTrailingComma: Extra comma following the final element of an array or object literal at services/timer-control.js :\n    40 |      this.resume();\n    41 |    }\n    42 |  },\n-----------^\n    43 |});');
+    assert.ok(false, 'services/timer-service.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Service directly at services/timer-service.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Service.extend({\n------------------------------^\n     4 |  _countdown() {\n     5 |    if (this.get(\'seconds\') === 0) {\ndisallowDirectPropertyAccess: Avoid accessing Ember.run directly at services/timer-service.js :\n     7 |    } else {\n     8 |      this.incrementProperty(\'seconds\', -1);\n     9 |      this._timer = Ember.run.later(this, \'_countdown\', 1000);\n---------------------------------^\n    10 |    }\n    11 |  },\ndisallowDirectPropertyAccess: Avoid accessing Ember.run directly at services/timer-service.js :\n    16 |  timeUp: false,\n    17 |  pause() {\n    18 |    Ember.run.cancel(this.get(\'_timer\'));\n-----------------^\n    19 |    this.set(\'_timer\', null);\n    20 |    this.set(\'iconState\', \'glyphicon-play\');\ndisallowDirectPropertyAccess: Avoid accessing Ember.run directly at services/timer-service.js :\n    21 |  },\n    22 |  reset() {\n    23 |    Ember.run.cancel(this.get(\'_timer\'));\n-----------------^\n    24 |    this.set(\'seconds\', this.get(\'timeLimit\') + 1);\n    25 |    this._countdown();\ndisallowTrailingComma: Extra comma following the final element of an array or object literal at services/timer-service.js :\n    40 |      this.resume();\n    41 |    }\n    42 |  },\n-----------^\n    43 |});');
   });
 });
-define('lyricsss/tests/services/timer-control.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/services/timer-service.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | services/timer-control.js');
+  QUnit.module('JSHint | services/timer-service.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'services/timer-control.js should pass jshint.');
+    assert.ok(true, 'services/timer-service.js should pass jshint.');
   });
 });
-define('lyricsss/tests/services/word-history.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/services/word-service.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - services/word-history.js');
+  QUnit.module('JSCS - services/word-service.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/word-history.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Service directly at services/word-history.js :\n     2 |import PastWord from \'lyricsss/models/past-word\';\n     3 |\n     4 |export default Ember.Service.extend({\n------------------------------^\n     5 |  add(word, team, answerCorrect, time) {\n     6 |    this.get(\'pastWords\').pushObject(PastWord.create({');
+    assert.ok(false, 'services/word-service.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Service directly at services/word-service.js :\n     2 |import PastWord from \'lyricsss/models/past-word\';\n     3 |\n     4 |export default Ember.Service.extend({\n------------------------------^\n     5 |  add(word, team, answerCorrect, time) {\n     6 |    this.get(\'pastWords\').pushObject(PastWord.create({');
   });
 });
-define('lyricsss/tests/services/word-history.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/services/word-service.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | services/word-history.js');
+  QUnit.module('JSHint | services/word-service.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'services/word-history.js should pass jshint.');
+    assert.ok(true, 'services/word-service.js should pass jshint.');
   });
 });
 define('lyricsss/tests/test-helper', ['exports', 'lyricsss/tests/helpers/resolver', 'ember-qunit'], function (exports, _lyricsssTestsHelpersResolver, _emberQunit) {
@@ -1414,9 +1062,9 @@ define('lyricsss/tests/unit/routes/lyrics-card-test.jshint', ['exports'], functi
     assert.ok(true, 'unit/routes/lyrics-card-test.js should pass jshint.');
   });
 });
-define('lyricsss/tests/unit/services/team-tracking-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('lyricsss/tests/unit/services/team-service-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('service:team-tracking', 'Unit | Service | team tracking', {
+  (0, _emberQunit.moduleFor)('service:team-service', 'Unit | Service | team tracking', {
     // Specify the other units that are required for this test.
     // needs: ['service:foo']
   });
@@ -1427,27 +1075,27 @@ define('lyricsss/tests/unit/services/team-tracking-test', ['exports', 'ember-qun
     assert.ok(service);
   });
 });
-define('lyricsss/tests/unit/services/team-tracking-test.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/unit/services/team-service-test.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - unit/services/team-tracking-test.js');
+  QUnit.module('JSCS - unit/services/team-service-test.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/team-tracking-test.js should pass jscs.');
+    assert.ok(true, 'unit/services/team-service-test.js should pass jscs.');
   });
 });
-define('lyricsss/tests/unit/services/team-tracking-test.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/unit/services/team-service-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | unit/services/team-tracking-test.js');
+  QUnit.module('JSHint | unit/services/team-service-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/team-tracking-test.js should pass jshint.');
+    assert.ok(true, 'unit/services/team-service-test.js should pass jshint.');
   });
 });
-define('lyricsss/tests/unit/services/timer-control-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('lyricsss/tests/unit/services/timer-service-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('service:timer-control', 'Unit | Service | timer control', {
+  (0, _emberQunit.moduleFor)('service:timer-service', 'Unit | Service | timer control', {
     // Specify the other units that are required for this test.
     // needs: ['service:foo']
   });
@@ -1458,27 +1106,27 @@ define('lyricsss/tests/unit/services/timer-control-test', ['exports', 'ember-qun
     assert.ok(service);
   });
 });
-define('lyricsss/tests/unit/services/timer-control-test.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/unit/services/timer-service-test.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - unit/services/timer-control-test.js');
+  QUnit.module('JSCS - unit/services/timer-service-test.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/timer-control-test.js should pass jscs.');
+    assert.ok(true, 'unit/services/timer-service-test.js should pass jscs.');
   });
 });
-define('lyricsss/tests/unit/services/timer-control-test.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/unit/services/timer-service-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | unit/services/timer-control-test.js');
+  QUnit.module('JSHint | unit/services/timer-service-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/timer-control-test.js should pass jshint.');
+    assert.ok(true, 'unit/services/timer-service-test.js should pass jshint.');
   });
 });
-define('lyricsss/tests/unit/services/word-history-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('lyricsss/tests/unit/services/words-service-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('service:word-history', 'Unit | Service | word history', {
+  (0, _emberQunit.moduleFor)('service:word-service', 'Unit | Service | word history', {
     // Specify the other units that are required for this test.
     // needs: ['service:foo']
   });
@@ -1489,22 +1137,22 @@ define('lyricsss/tests/unit/services/word-history-test', ['exports', 'ember-quni
     assert.ok(service);
   });
 });
-define('lyricsss/tests/unit/services/word-history-test.jscs-test', ['exports'], function (exports) {
+define('lyricsss/tests/unit/services/words-service-test.jscs-test', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSCS - unit/services/word-history-test.js');
+  QUnit.module('JSCS - unit/services/words-service-test.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/word-history-test.js should pass jscs.');
+    assert.ok(true, 'unit/services/words-service-test.js should pass jscs.');
   });
 });
-define('lyricsss/tests/unit/services/word-history-test.jshint', ['exports'], function (exports) {
+define('lyricsss/tests/unit/services/words-service-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint | unit/services/word-history-test.js');
+  QUnit.module('JSHint | unit/services/words-service-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/word-history-test.js should pass jshint.');
+    assert.ok(true, 'unit/services/words-service-test.js should pass jshint.');
   });
 });
 /* jshint ignore:start */

@@ -1,6 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  actions: {
+    nextWord() {
+      this.get('wordHistory').changeWord();
+      this.get('timer').reset();
+    }
+  },
+  click() {
+    this.splashScreenToCards();
+    this.get('timer').reset();
+  },
+  didInsertElement() {
+    this.get('wordHistory').initialize(this.get('someWords'));
+  },
   init() {
     this._super(...arguments);
     this.set('showSplashScreen', true);
@@ -13,7 +26,7 @@ export default Ember.Component.extend({
   touchEnd() {
     this.click();
   },
-  click() {
-    this.splashScreenToCards();
-  }
+  teams: Ember.inject.service('team-service'),
+  timer: Ember.inject.service('timer-service'),
+  wordHistory: Ember.inject.service('word-service')
 });

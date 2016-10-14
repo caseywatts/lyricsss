@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('service:team-tracking', 'Unit | Service | team tracking', {
+moduleFor('service:team-service', 'Unit | Service | team tracking', {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
 });

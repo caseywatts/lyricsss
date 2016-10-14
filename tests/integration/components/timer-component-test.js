@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('word-history-view-controller', 'Integration | Component | word history view controller', {
+moduleForComponent('timer-component', 'Integration | Component | timer display control', {
   integration: true
 });
 
@@ -9,15 +9,15 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{word-history-view-controller}}`);
+  this.render(hbs`{{timer-display-control}}`);
 
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
   this.render(hbs`
-    {{#word-history-view-controller}}
+    {{#timer-display-control}}
       template block text
-    {{/word-history-view-controller}}
+    {{/timer-display-control}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

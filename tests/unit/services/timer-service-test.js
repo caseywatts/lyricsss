@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('service:timer-control', 'Unit | Service | timer control', {
+moduleFor('service:timer-service', 'Unit | Service | timer control', {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
 });
