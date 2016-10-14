@@ -5,12 +5,6 @@ export default Ember.Component.extend({
     nextWord() {
       this.get('wordHistory').changeWord();
       this.get('timer').reset();
-    },
-    resetTimer() {
-      this.get('timer').reset();
-    },
-    toggleTimer() {
-      this.get('timer').toggle();
     }
   },
   didInsertElement() {
