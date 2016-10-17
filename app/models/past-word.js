@@ -4,19 +4,23 @@ import Ember from 'ember';
 export default Ember.Object.extend({
   // boolean
   answerCorrect: null,
-  correctnessGlyphicon: Ember.computed('answerCorrect', function() {
-    if (this.get('answerCorrect') === true) {
-      return 'glyphicon glyphicon-ok';
-    } else if (this.get('answerCorrect') === false) {
-      return 'glyphicon glyphicon-remove';
-    } else {
-      return;
-    }
-  }),
+  icons: {
+    correct: 'glyphicon glyphicon-ok',
+    incorrect: 'glyphicon glyphicon-remove'
+  },
   // string
   team: null,
   // string
   time: null,
   // string
-  word: null
+  word: null,
+  correctnessIcon: Ember.computed('answerCorrect', function() {
+    if (this.get('answerCorrect') === true) {
+      return this.get('icons.correct');
+    } else if (this.get('answerCorrect') === false) {
+      return this.get('icons.incorrect');
+    } else {
+      return;
+    }
+  })
 });

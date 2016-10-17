@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  timer: Ember.inject.service('timer-service'),
   actions: {
     resetTimer() {
       this.get('timer').reset();
@@ -8,6 +9,5 @@ export default Ember.Component.extend({
     toggleTimer() {
       this.get('timer').toggle();
     }
-  },
-  timer: Ember.inject.service('timer-service')
+  }
 });

@@ -1,18 +1,21 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  teams: Ember.inject.service('team-service'),
+  timer: Ember.inject.service('timer-service'),
+  words: Ember.inject.service('word-service'),
   actions: {
     nextWord() {
-      this.get('wordHistory').changeWord();
+      this.get('words').changeWord();
       this.get('timer').reset();
     }
   },
   click() {
     this.splashScreenToCards();
-    this.get('timer').reset();
   },
   didInsertElement() {
-    this.get('wordHistory').initialize(this.get('someWords'));
+    this.get('words').initialize(this.get('someWords'));
+    this.get('timer').reset();
   },
   init() {
     this._super(...arguments);
@@ -25,8 +28,5 @@ export default Ember.Component.extend({
   },
   touchEnd() {
     this.click();
-  },
-  teams: Ember.inject.service('team-service'),
-  timer: Ember.inject.service('timer-service'),
-  wordHistory: Ember.inject.service('word-service')
+  }
 });

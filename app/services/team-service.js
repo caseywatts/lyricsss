@@ -3,6 +3,9 @@ import Ember from 'ember';
 export default Ember.Service.extend({
   active: 'blue',
   blueScore: 0,
+  redScore: 0,
+  rounds: 0,
+  _tries: 0, // Number of times the 'correct' or 'wrong' buttons are clicked. = Rounds * numTeams
   // Changes score of current team.
   increaseScore(amount) {
     if (this.get('active') === 'red') {
@@ -18,9 +21,6 @@ export default Ember.Service.extend({
       this.set('active', 'red');
     }
   },
-  redScore: 0,
-  rounds: 0,
-  _tries: 0, // Number of times the 'correct' or 'wrong' buttons are clicked. = Rounds * numTeams
   updateRoundCounter() {
     this.incrementProperty('_tries', 1);
     this.set('rounds', parseInt(this.get('_tries') / 2));

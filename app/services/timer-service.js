@@ -1,8 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
+  iconState: 'glyphicon-pause',
+  seconds: 0,
+  timeLimit: 30, // Starting time on _timer, in seconds
+  _timer: null,
+  timeUp: false,
   _countdown() {
-    if (this.get('seconds') === 0) {
+    if (this.get('seconds') <= 0) {
       this.set('timeUp', true);
     } else {
       this.incrementProperty('seconds', -1);
@@ -12,8 +17,6 @@ export default Ember.Service.extend({
   elapsedTime() {
     return this.get('timeLimit') - this.get('seconds');
   },
-  iconState: 'glyphicon-pause',
-  timeUp: false,
   pause() {
     Ember.run.cancel(this.get('_timer'));
     this.set('_timer', null);
@@ -30,9 +33,6 @@ export default Ember.Service.extend({
     this._countdown();
     this.set('iconState', 'glyphicon-pause');
   },
-  seconds: 0,
-  timeLimit: 30, // Starting time on _timer, in seconds
-  _timer: null,
   toggle() {
     if (this.get('_timer')) {
       this.pause();

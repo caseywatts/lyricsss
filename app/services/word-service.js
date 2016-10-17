@@ -2,7 +2,9 @@ import Ember from 'ember';
 import PastWord from 'lyricsss/models/past-word';
 
 export default Ember.Service.extend({
-  add(word, team, answerCorrect, time) {
+  pastWords: [],
+  upcomingWords: [],
+  add({word, team, answerCorrect, time}) {
     this.get('pastWords').pushObject(PastWord.create({
       word,
       team,
@@ -16,12 +18,12 @@ export default Ember.Service.extend({
   },
   // Must call this before any other functions. Feed it the word list.
   initialize(upcomingWords) {
-    upcomingWords.sort(function() {
-      return Math.random() - 0.5;
-    });
-    this.set('upcomingWords', upcomingWords);
+    this.set('upcomingWords', this.get('randomize')(upcomingWords));
     this.changeWord();
   },
-  pastWords: [],
-  upcomingWords: []
+  randomize(words) {
+    return words.sort(function() {
+      return Math.random() - 0.5;
+    });
+  }
 });
