@@ -288,30 +288,41 @@ define('lyricsss/components/ember-wormhole', ['exports', 'ember-wormhole/compone
 });
 define('lyricsss/components/team-component', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
+    teams: _ember['default'].inject.service('team-service'),
+    timer: _ember['default'].inject.service('timer-service'),
+    words: _ember['default'].inject.service('word-service'),
     actions: {
       correctAnswer: function correctAnswer() {
-        this.get('wordHistory').add(this.get('wordHistory').get('currentWord'), this.get('teams').get('active'), true, this.get('timer').get('elapsedTime'));
+        this.get('words').add({
+          word: this.get('words.currentWord'),
+          team: this.get('teams.active'),
+          answerCorrect: true,
+          time: this.get('timer.elapsedTime')
+        });
         this.get('teams').increaseScore(1);
-        this.get('wordHistory').changeWord();
+        this.get('words').changeWord();
         this.get('teams').next();
         this.get('timer').reset();
         this.get('teams').updateRoundCounter();
       },
       wrongAnswer: function wrongAnswer() {
-        this.get('wordHistory').add(this.get('wordHistory').get('currentWord'), this.get('teams').get('active'), false, this.get('timer').get('elapsedTime'));
-        this.get('wordHistory').changeWord();
+        this.get('words').add({
+          word: this.get('words.currentWord'),
+          team: this.get('teams.active'),
+          answerCorrect: false,
+          time: this.get('timer.elapsedTime')
+        });
+        this.get('words').changeWord();
         this.get('teams').next();
         this.get('timer').reset();
         this.get('teams').updateRoundCounter();
       }
-    },
-    teams: _ember['default'].inject.service('team-service'),
-    timer: _ember['default'].inject.service('timer-service'),
-    wordHistory: _ember['default'].inject.service('word-service')
+    }
   });
 });
 define('lyricsss/components/timer-component', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
+    timer: _ember['default'].inject.service('timer-service'),
     actions: {
       resetTimer: function resetTimer() {
         this.get('timer').reset();
@@ -319,24 +330,26 @@ define('lyricsss/components/timer-component', ['exports', 'ember'], function (ex
       toggleTimer: function toggleTimer() {
         this.get('timer').toggle();
       }
-    },
-    timer: _ember['default'].inject.service('timer-service')
+    }
   });
 });
 define('lyricsss/components/top-layout', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
+    teams: _ember['default'].inject.service('team-service'),
+    timer: _ember['default'].inject.service('timer-service'),
+    words: _ember['default'].inject.service('word-service'),
     actions: {
       nextWord: function nextWord() {
-        this.get('wordHistory').changeWord();
+        this.get('words').changeWord();
         this.get('timer').reset();
       }
     },
     click: function click() {
       this.splashScreenToCards();
-      this.get('timer').reset();
     },
     didInsertElement: function didInsertElement() {
-      this.get('wordHistory').initialize(this.get('someWords'));
+      this.get('words').initialize(this.get('someWords'));
+      this.get('timer').reset();
     },
     init: function init() {
       this._super.apply(this, arguments);
@@ -349,15 +362,12 @@ define('lyricsss/components/top-layout', ['exports', 'ember'], function (exports
     },
     touchEnd: function touchEnd() {
       this.click();
-    },
-    teams: _ember['default'].inject.service('team-service'),
-    timer: _ember['default'].inject.service('timer-service'),
-    wordHistory: _ember['default'].inject.service('word-service')
+    }
   });
 });
 define('lyricsss/components/word-history', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
-    wordHistory: _ember['default'].inject.service('word-service')
+    words: _ember['default'].inject.service('word-service')
   });
 });
 define('lyricsss/helpers/bs-contains', ['exports', 'ember-bootstrap/helpers/bs-contains'], function (exports, _emberBootstrapHelpersBsContains) {
@@ -614,21 +624,25 @@ define('lyricsss/models/past-word', ['exports', 'ember'], function (exports, _em
   exports['default'] = _ember['default'].Object.extend({
     // boolean
     answerCorrect: null,
-    correctnessGlyphicon: _ember['default'].computed('answerCorrect', function () {
-      if (this.get('answerCorrect') === true) {
-        return 'glyphicon glyphicon-ok';
-      } else if (this.get('answerCorrect') === false) {
-        return 'glyphicon glyphicon-remove';
-      } else {
-        return;
-      }
-    }),
+    icons: {
+      correct: 'glyphicon glyphicon-ok',
+      incorrect: 'glyphicon glyphicon-remove'
+    },
     // string
     team: null,
     // string
     time: null,
     // string
-    word: null
+    word: null,
+    correctnessIcon: _ember['default'].computed('answerCorrect', function () {
+      if (this.get('answerCorrect') === true) {
+        return this.get('icons.correct');
+      } else if (this.get('answerCorrect') === false) {
+        return this.get('icons.incorrect');
+      } else {
+        return;
+      }
+    })
   });
 });
 define('lyricsss/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
@@ -665,6 +679,9 @@ define('lyricsss/services/team-service', ['exports', 'ember'], function (exports
   exports['default'] = _ember['default'].Service.extend({
     active: 'blue',
     blueScore: 0,
+    redScore: 0,
+    rounds: 0,
+    _tries: 0, // Number of times the 'correct' or 'wrong' buttons are clicked. = Rounds * numTeams
     // Changes score of current team.
     increaseScore: function increaseScore(amount) {
       if (this.get('active') === 'red') {
@@ -680,9 +697,6 @@ define('lyricsss/services/team-service', ['exports', 'ember'], function (exports
         this.set('active', 'red');
       }
     },
-    redScore: 0,
-    rounds: 0,
-    _tries: 0, // Number of times the 'correct' or 'wrong' buttons are clicked. = Rounds * numTeams
     updateRoundCounter: function updateRoundCounter() {
       this.incrementProperty('_tries', 1);
       this.set('rounds', parseInt(this.get('_tries') / 2));
@@ -691,8 +705,13 @@ define('lyricsss/services/team-service', ['exports', 'ember'], function (exports
 });
 define('lyricsss/services/timer-service', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Service.extend({
+    iconState: 'glyphicon-pause',
+    seconds: 0,
+    timeLimit: 30, // Starting time on _timer, in seconds
+    _timer: null,
+    timeUp: false,
     _countdown: function _countdown() {
-      if (this.get('seconds') === 0) {
+      if (this.get('seconds') <= 0) {
         this.set('timeUp', true);
       } else {
         this.incrementProperty('seconds', -1);
@@ -702,8 +721,6 @@ define('lyricsss/services/timer-service', ['exports', 'ember'], function (export
     elapsedTime: function elapsedTime() {
       return this.get('timeLimit') - this.get('seconds');
     },
-    iconState: 'glyphicon-pause',
-    timeUp: false,
     pause: function pause() {
       _ember['default'].run.cancel(this.get('_timer'));
       this.set('_timer', null);
@@ -720,9 +737,6 @@ define('lyricsss/services/timer-service', ['exports', 'ember'], function (export
       this._countdown();
       this.set('iconState', 'glyphicon-pause');
     },
-    seconds: 0,
-    timeLimit: 30, // Starting time on _timer, in seconds
-    _timer: null,
     toggle: function toggle() {
       if (this.get('_timer')) {
         this.pause();
@@ -734,7 +748,14 @@ define('lyricsss/services/timer-service', ['exports', 'ember'], function (export
 });
 define('lyricsss/services/word-service', ['exports', 'ember', 'lyricsss/models/past-word'], function (exports, _ember, _lyricsssModelsPastWord) {
   exports['default'] = _ember['default'].Service.extend({
-    add: function add(word, team, answerCorrect, time) {
+    pastWords: [],
+    upcomingWords: [],
+    add: function add(_ref) {
+      var word = _ref.word;
+      var team = _ref.team;
+      var answerCorrect = _ref.answerCorrect;
+      var time = _ref.time;
+
       this.get('pastWords').pushObject(_lyricsssModelsPastWord['default'].create({
         word: word,
         team: team,
@@ -748,14 +769,14 @@ define('lyricsss/services/word-service', ['exports', 'ember', 'lyricsss/models/p
     },
     // Must call this before any other functions. Feed it the word list.
     initialize: function initialize(upcomingWords) {
-      upcomingWords.sort(function () {
-        return Math.random() - 0.5;
-      });
-      this.set('upcomingWords', upcomingWords);
+      this.set('upcomingWords', this.get('randomize')(upcomingWords));
       this.changeWord();
     },
-    pastWords: [],
-    upcomingWords: []
+    randomize: function randomize(words) {
+      return words.sort(function () {
+        return Math.random() - 0.5;
+      });
+    }
   });
 });
 define("lyricsss/templates/components/bs-accordion-item", ["exports"], function (exports) {
@@ -4696,8 +4717,8 @@ define("lyricsss/templates/components/team-component", ["exports"], function (ex
             "column": 0
           },
           "end": {
-            "line": 12,
-            "column": 6
+            "line": 13,
+            "column": 0
           }
         },
         "moduleName": "lyricsss/templates/components/team-component.hbs"
@@ -4754,7 +4775,6 @@ define("lyricsss/templates/components/team-component", ["exports"], function (ex
         dom.setAttribute(el3, "type", "button");
         dom.setAttribute(el3, "class", "btn btn-default");
         var el4 = dom.createElement("span");
-        dom.setAttribute(el4, "class", "glyphicon glyphicon-ok");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n    ");
@@ -4776,21 +4796,25 @@ define("lyricsss/templates/components/team-component", ["exports"], function (ex
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
         var element1 = dom.childAt(element0, [1, 1]);
         var element2 = dom.childAt(element0, [7, 1]);
-        var morphs = new Array(5);
+        var element3 = dom.childAt(element2, [0]);
+        var morphs = new Array(6);
         morphs[0] = dom.createElementMorph(element1);
         morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 0, 0);
         morphs[2] = dom.createMorphAt(dom.childAt(element0, [5]), 0, 0);
         morphs[3] = dom.createElementMorph(element2);
-        morphs[4] = dom.createMorphAt(dom.childAt(element0, [9]), 1, 1);
+        morphs[4] = dom.createAttrMorph(element3, 'class');
+        morphs[5] = dom.createMorphAt(dom.childAt(element0, [9]), 1, 1);
         return morphs;
       },
-      statements: [["element", "action", ["wrongAnswer"], [], ["loc", [null, [3, 50], [3, 74]]]], ["content", "teams.blueScore", ["loc", [null, [5, 38], [5, 57]]]], ["content", "teams.redScore", ["loc", [null, [6, 37], [6, 55]]]], ["element", "action", ["correctAnswer"], [], ["loc", [null, [8, 50], [8, 76]]]], ["content", "teams.rounds", ["loc", [null, [11, 52], [11, 68]]]]],
+      statements: [["element", "action", ["wrongAnswer"], [], ["loc", [null, [3, 50], [3, 74]]]], ["content", "teams.blueScore", ["loc", [null, [5, 38], [5, 57]]]], ["content", "teams.redScore", ["loc", [null, [6, 37], [6, 55]]]], ["element", "action", ["correctAnswer"], [], ["loc", [null, [8, 50], [8, 76]]]], ["attribute", "class", "glyphicon glyphicon-ok"], ["content", "teams.rounds", ["loc", [null, [11, 52], [11, 68]]]]],
       locals: [],
       templates: []
     };
@@ -5077,7 +5101,7 @@ define("lyricsss/templates/components/top-layout", ["exports"], function (export
           morphs[5] = dom.createMorphAt(element0, 9, 9);
           return morphs;
         },
-        statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "teams.active", ["loc", [null, [20, 28], [20, 40]]]], " flex-center"]]], ["content", "wordHistory.currentWord", ["loc", [null, [21, 8], [21, 35]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [24, 50], [24, 71]]]], ["content", "timer-component", ["loc", [null, [26, 2], [26, 21]]]], ["content", "team-component", ["loc", [null, [27, 2], [27, 20]]]], ["content", "word-history", ["loc", [null, [28, 2], [28, 18]]]]],
+        statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "teams.active", ["loc", [null, [20, 28], [20, 40]]]], " flex-center"]]], ["content", "words.currentWord", ["loc", [null, [21, 8], [21, 29]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [24, 50], [24, 71]]]], ["content", "timer-component", ["loc", [null, [26, 2], [26, 21]]]], ["content", "team-component", ["loc", [null, [27, 2], [27, 20]]]], ["content", "word-history", ["loc", [null, [28, 2], [28, 18]]]]],
         locals: [],
         templates: []
       };
@@ -5183,7 +5207,7 @@ define("lyricsss/templates/components/word-history", ["exports"], function (expo
           morphs[2] = dom.createMorphAt(element0, 3, 3);
           return morphs;
         },
-        statements: [["attribute", "class", ["concat", ["list-group-item ", ["get", "entry.team", ["loc", [null, [3, 33], [3, 43]]]]]]], ["attribute", "class", ["concat", [["get", "entry.correctnessGlyphicon", ["loc", [null, [4, 21], [4, 47]]]]]]], ["content", "entry.word", ["loc", [null, [5, 6], [5, 20]]]]],
+        statements: [["attribute", "class", ["concat", ["list-group-item ", ["get", "entry.team", ["loc", [null, [3, 33], [3, 43]]]]]]], ["attribute", "class", ["concat", [["get", "entry.correctnessIcon", ["loc", [null, [4, 21], [4, 42]]]]]]], ["content", "entry.word", ["loc", [null, [5, 6], [5, 20]]]]],
         locals: ["entry"],
         templates: []
       };
@@ -5201,8 +5225,8 @@ define("lyricsss/templates/components/word-history", ["exports"], function (expo
             "column": 0
           },
           "end": {
-            "line": 8,
-            "column": 5
+            "line": 9,
+            "column": 0
           }
         },
         "moduleName": "lyricsss/templates/components/word-history.hbs"
@@ -5220,6 +5244,8 @@ define("lyricsss/templates/components/word-history", ["exports"], function (expo
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
@@ -5227,7 +5253,7 @@ define("lyricsss/templates/components/word-history", ["exports"], function (expo
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         return morphs;
       },
-      statements: [["block", "each", [["get", "wordHistory.pastWords", ["loc", [null, [2, 10], [2, 31]]]]], [], 0, null, ["loc", [null, [2, 2], [7, 11]]]]],
+      statements: [["block", "each", [["get", "words.pastWords", ["loc", [null, [2, 10], [2, 25]]]]], [], 0, null, ["loc", [null, [2, 2], [7, 11]]]]],
       locals: [],
       templates: [child0]
     };
@@ -5310,7 +5336,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+cf6fcd59"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+1b96f177"});
 }
 
 /* jshint ignore:end */
