@@ -17,8 +17,14 @@
 
 {{#if showCards}}
 <div class="fullscreen flex-center">
-  <div class="lyrics-card blue-card flex-center">
-    <h1>{{aRandomLyric}}</h1>
+  <div class="lyrics-card {{teams.active}} flex-center">
+    <h1>{{wordHistory.currentWord}}</h1>
   </div>
+  <div class="button-card flex-row">
+    <button type="button" class="btn btn-default" {{action "nextWord"}}><span class="glyphicon glyphicon-fast-forward"></span></button>
+  </div>
+  {{timer-component}}
+  {{team-component}}
+  {{word-history}}
 </div>
 {{/if}}
