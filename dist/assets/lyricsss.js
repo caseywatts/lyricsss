@@ -292,7 +292,7 @@ define('lyricsss/components/team-component', ['exports', 'ember'], function (exp
       correctAnswer: function correctAnswer() {
         this.get('wordHistory').add(this.get('wordHistory').get('currentWord'), this.get('teams').get('active'), true, this.get('timer').get('elapsedTime'));
         this.get('teams').increaseScore(1);
-        this.get('wordHistory').changeWord();
+        // this.get('wordHistory').changeWord();
         this.get('teams').next();
         this.get('timer').reset();
         this.get('teams').updateRoundCounter();
@@ -5310,7 +5310,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+cf6fcd59"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+1b96f177"});
 }
 
 /* jshint ignore:end */
