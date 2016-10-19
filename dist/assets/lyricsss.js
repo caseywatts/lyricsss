@@ -300,7 +300,6 @@ define('lyricsss/components/team-component', ['exports', 'ember'], function (exp
           time: this.get('timer.elapsedTime')
         });
         this.get('teams').increaseScore(1);
-        this.get('words').changeWord();
         this.get('teams').next();
         this.get('timer').reset();
         this.get('teams').updateRoundCounter();

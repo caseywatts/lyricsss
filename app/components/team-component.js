@@ -13,7 +13,6 @@ export default Ember.Component.extend({
         time: this.get('timer.elapsedTime')
       });
       this.get('teams').increaseScore(1);
-      this.get('words').changeWord();
       this.get('teams').next();
       this.get('timer').reset();
       this.get('teams').updateRoundCounter();
