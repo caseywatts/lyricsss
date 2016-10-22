@@ -1,30 +1,11 @@
-{{#if showSplashScreen}}
 <div class="splash-screen blue-card flex-center">
   <div>
     <h1>Lyricsss</h1>
     <p>A deck of cards, each with a common song lyric.</p>
     <br>
-    <h3>Casual</h3>
-      <p>Try and come up with as many songs as you can for each lyric before moving on to the next one.</p>
-    <h3>Competitive</h3>
+    {{#link-to "casual-mode"}}<h3>Casual</h3>{{/link-to}}
+    <p>Try and come up with as many songs as you can for each lyric before moving on to the next one.</p>
+    {{#link-to "competative-mode"}}<h3>Competitive</h3>{{/link-to}}
     <p> Each team has to come up with a new song before passing play to the other team. When one team doesn't come up with one in 30 seconds, the other team gets a point!</p>
-    <br>
-    <br>
-    <p><small>(click/tap to continue)</small></p>
   </div>
 </div>
-{{/if}}
-
-{{#if showCards}}
-<div class="fullscreen flex-center">
-  <div class="lyrics-card {{teams.active}} flex-center">
-    <h1>{{words.currentWord}}</h1>
-  </div>
-  <div class="button-card flex-row">
-    <button type="button" class="btn btn-default" {{action "nextWord"}}><span class="glyphicon glyphicon-fast-forward"></span></button>
-  </div>
-  {{timer-component}}
-  {{team-component}}
-  {{word-history}}
-</div>
-{{/if}}

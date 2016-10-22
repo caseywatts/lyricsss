@@ -1,0 +1,10 @@
+<div class="fullscreen flex-center">
+  <div class="lyrics-card {{teams.active}} flex-center">
+    <h1>{{words.currentWord}}</h1>
+  </div>
+  <div class="button-card flex-row">
+    <button type="button" class="btn btn-default" {{action "nextWord"}}><span class="glyphicon glyphicon-fast-forward"></span></button>
+  </div>
+  {{timer-component}}
+  {{word-history}}
+</div>

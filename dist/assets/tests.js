@@ -16,6 +16,42 @@ define('lyricsss/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
+define('lyricsss/tests/components/casual-mode.jscs-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSCS - components/casual-mode.js');
+  QUnit.test('should pass jscs', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/casual-mode.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/casual-mode.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  timer: Ember.inject.service(\'timer-service\'),\n     5 |  words: Ember.inject.service(\'word-service\'),\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/casual-mode.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  timer: Ember.inject.service(\'timer-service\'),\n-----------------------^\n     5 |  words: Ember.inject.service(\'word-service\'),\n     6 |  actions: {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/casual-mode.js :\n     3 |export default Ember.Component.extend({\n     4 |  timer: Ember.inject.service(\'timer-service\'),\n     5 |  words: Ember.inject.service(\'word-service\'),\n-----------------------^\n     6 |  actions: {\n     7 |    nextWord() {');
+  });
+});
+define('lyricsss/tests/components/casual-mode.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/casual-mode.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/casual-mode.js should pass jshint.\ncomponents/casual-mode.js: line 13, col 5, Forgotten \'debugger\' statement?\n\n1 error');
+  });
+});
+define('lyricsss/tests/components/competative-mode.jscs-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSCS - components/competative-mode.js');
+  QUnit.test('should pass jscs', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/competative-mode.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/competative-mode.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  timer: Ember.inject.service(\'timer-service\'),\n     5 |  words: Ember.inject.service(\'word-service\'),\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/competative-mode.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  timer: Ember.inject.service(\'timer-service\'),\n-----------------------^\n     5 |  words: Ember.inject.service(\'word-service\'),\n     6 |  actions: {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/competative-mode.js :\n     3 |export default Ember.Component.extend({\n     4 |  timer: Ember.inject.service(\'timer-service\'),\n     5 |  words: Ember.inject.service(\'word-service\'),\n-----------------------^\n     6 |  actions: {\n     7 |    nextWord() {');
+  });
+});
+define('lyricsss/tests/components/competative-mode.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/competative-mode.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/competative-mode.js should pass jshint.');
+  });
+});
 define('lyricsss/tests/components/team-component.jscs-test', ['exports'], function (exports) {
   'use strict';
 
@@ -58,7 +94,7 @@ define('lyricsss/tests/components/top-layout.jscs-test', ['exports'], function (
   QUnit.module('JSCS - components/top-layout.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/top-layout.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/top-layout.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  teams: Ember.inject.service(\'team-service\'),\n     5 |  timer: Ember.inject.service(\'timer-service\'),\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/top-layout.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  teams: Ember.inject.service(\'team-service\'),\n-----------------------^\n     5 |  timer: Ember.inject.service(\'timer-service\'),\n     6 |  words: Ember.inject.service(\'word-service\'),\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/top-layout.js :\n     3 |export default Ember.Component.extend({\n     4 |  teams: Ember.inject.service(\'team-service\'),\n     5 |  timer: Ember.inject.service(\'timer-service\'),\n-----------------------^\n     6 |  words: Ember.inject.service(\'word-service\'),\n     7 |  actions: {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/top-layout.js :\n     4 |  teams: Ember.inject.service(\'team-service\'),\n     5 |  timer: Ember.inject.service(\'timer-service\'),\n     6 |  words: Ember.inject.service(\'word-service\'),\n-----------------------^\n     7 |  actions: {\n     8 |    nextWord() {');
+    assert.ok(false, 'components/top-layout.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/top-layout.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |});\n     5 |');
   });
 });
 define('lyricsss/tests/components/top-layout.jshint', ['exports'], function (exports) {
@@ -220,6 +256,322 @@ define('lyricsss/tests/helpers/start-app.jshint', ['exports'], function (exports
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/start-app.js should pass jshint.');
+  });
+});
+define('lyricsss/tests/integration/components/casual-mode-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('casual-mode', 'Integration | Component | casual mode', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.2',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 15
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'casual-mode', ['loc', [null, [1, 0], [1, 15]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'fragmentReason': false,
+            'revision': 'Ember@2.6.2',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.2',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'casual-mode', [], [], 0, null, ['loc', [null, [2, 4], [4, 20]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('lyricsss/tests/integration/components/casual-mode-test.jscs-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSCS - integration/components/casual-mode-test.js');
+  QUnit.test('should pass jscs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/casual-mode-test.js should pass jscs.');
+  });
+});
+define('lyricsss/tests/integration/components/casual-mode-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/casual-mode-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/casual-mode-test.js should pass jshint.');
+  });
+});
+define('lyricsss/tests/integration/components/competative-mode-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('competative-mode', 'Integration | Component | competative mode', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.2',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 20
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'competative-mode', ['loc', [null, [1, 0], [1, 20]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'fragmentReason': false,
+            'revision': 'Ember@2.6.2',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.2',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'competative-mode', [], [], 0, null, ['loc', [null, [2, 4], [4, 25]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('lyricsss/tests/integration/components/competative-mode-test.jscs-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSCS - integration/components/competative-mode-test.js');
+  QUnit.test('should pass jscs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/competative-mode-test.js should pass jscs.');
+  });
+});
+define('lyricsss/tests/integration/components/competative-mode-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/competative-mode-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/competative-mode-test.js should pass jshint.');
   });
 });
 define('lyricsss/tests/integration/components/team-component-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
