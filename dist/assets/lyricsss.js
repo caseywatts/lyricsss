@@ -522,7 +522,7 @@ define('lyricsss/initializers/ember-data', ['exports', 'ember-data/setup-contain
       adapter: 'custom'
     });
   
-    App.PostsController = Ember.Controller.extend({
+    App.PostsController = Ember.ArrayController.extend({
       // ...
     });
   
@@ -547,18 +547,6 @@ define('lyricsss/initializers/export-application-global', ['exports', 'ember', '
   function initialize() {
     var application = arguments[1] || arguments[0];
     if (_lyricsssConfigEnvironment['default'].exportApplicationGlobal !== false) {
-      var theGlobal;
-      if (typeof window !== 'undefined') {
-        theGlobal = window;
-      } else if (typeof global !== 'undefined') {
-        theGlobal = global;
-      } else if (typeof self !== 'undefined') {
-        theGlobal = self;
-      } else {
-        // no reasonable global, just bail
-        return;
-      }
-
       var value = _lyricsssConfigEnvironment['default'].exportApplicationGlobal;
       var globalName;
 
@@ -568,13 +556,13 @@ define('lyricsss/initializers/export-application-global', ['exports', 'ember', '
         globalName = _ember['default'].String.classify(_lyricsssConfigEnvironment['default'].modulePrefix);
       }
 
-      if (!theGlobal[globalName]) {
-        theGlobal[globalName] = application;
+      if (!window[globalName]) {
+        window[globalName] = application;
 
         application.reopen({
           willDestroy: function willDestroy() {
             this._super.apply(this, arguments);
-            delete theGlobal[globalName];
+            delete window[globalName];
           }
         });
       }
@@ -4841,11 +4829,11 @@ define("lyricsss/templates/components/splash-page", ["exports"], function (expor
             "source": null,
             "start": {
               "line": 4,
-              "column": 0
+              "column": 4
             },
             "end": {
               "line": 4,
-              "column": 38
+              "column": 56
             }
           },
           "moduleName": "lyricsss/templates/components/splash-page.hbs"
@@ -4876,12 +4864,12 @@ define("lyricsss/templates/components/splash-page", ["exports"], function (expor
           "loc": {
             "source": null,
             "start": {
-              "line": 6,
-              "column": 0
+              "line": 5,
+              "column": 4
             },
             "end": {
-              "line": 6,
-              "column": 44
+              "line": 5,
+              "column": 65
             }
           },
           "moduleName": "lyricsss/templates/components/splash-page.hbs"
@@ -4908,7 +4896,7 @@ define("lyricsss/templates/components/splash-page", ["exports"], function (expor
       meta: {
         "fragmentReason": {
           "name": "missing-wrapper",
-          "problems": ["wrong-type", "multiple-nodes"]
+          "problems": ["multiple-nodes"]
         },
         "revision": "Ember@2.6.2",
         "loc": {
@@ -4918,7 +4906,7 @@ define("lyricsss/templates/components/splash-page", ["exports"], function (expor
             "column": 0
           },
           "end": {
-            "line": 7,
+            "line": 9,
             "column": 0
           }
         },
@@ -4930,37 +4918,48 @@ define("lyricsss/templates/components/splash-page", ["exports"], function (expor
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "container");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "screen");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("h1");
+        var el4 = dom.createTextNode("LyricUS");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\nLyricUS\n");
+        var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("br");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("br");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(3);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        morphs[1] = dom.createMorphAt(fragment, 4, 4, contextualElement);
-        morphs[2] = dom.createMorphAt(fragment, 8, 8, contextualElement);
-        dom.insertBoundary(fragment, 0);
+        var element0 = dom.childAt(fragment, [0, 1]);
+        var morphs = new Array(2);
+        morphs[0] = dom.createMorphAt(element0, 3, 3);
+        morphs[1] = dom.createMorphAt(element0, 5, 5);
         return morphs;
       },
-      statements: [["content", "yield", ["loc", [null, [1, 0], [1, 9]]]], ["block", "link-to", ["route-play-game"], [], 0, null, ["loc", [null, [4, 0], [4, 50]]]], ["block", "link-to", ["route-instructions"], [], 1, null, ["loc", [null, [6, 0], [6, 56]]]]],
+      statements: [["block", "link-to", ["route-play-game"], ["id", "new-game"], 0, null, ["loc", [null, [4, 4], [4, 68]]]], ["block", "link-to", ["route-instructions"], ["id", "how-to-play"], 1, null, ["loc", [null, [5, 4], [5, 77]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -5692,7 +5691,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+bf096601"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+80b995ae"});
 }
 
 /* jshint ignore:end */
