@@ -1,9 +1,15 @@
+body, .container {
+  margin: 0;
+  padding: 0;
+  background: #4a4a4a
+}
 
 .screen {
   background: #4a4a4a;
-  width: 414px;
-  height: 736px;
+  width: 100vw;
+  height: 100vh;
 }
+
 
 h1 {
   font-family: Verdana;
