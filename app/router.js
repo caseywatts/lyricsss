@@ -6,7 +6,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('main', { path: '' });
+  this.route('route-splash-page', { path: '' });
+  this.route('route-play-game', { path: 'play' });
+  this.route('route-instructions', { path: 'instructions' });
 });
 
 export default Router;
