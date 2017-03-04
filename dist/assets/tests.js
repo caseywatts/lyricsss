@@ -16,6 +16,24 @@ define('lyricsss/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
+define('lyricsss/tests/components/play-game.jscs-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSCS - components/play-game.js');
+  QUnit.test('should pass jscs', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/play-game.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Component directly at components/play-game.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Component.extend({\n-------------------------------^\n     4 |  teams: Ember.inject.service(\'team-service\'),\n     5 |  timer: Ember.inject.service(\'timer-service\'),\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/play-game.js :\n     2 |\n     3 |export default Ember.Component.extend({\n     4 |  teams: Ember.inject.service(\'team-service\'),\n-----------------------^\n     5 |  timer: Ember.inject.service(\'timer-service\'),\n     6 |  words: Ember.inject.service(\'word-service\'),\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/play-game.js :\n     3 |export default Ember.Component.extend({\n     4 |  teams: Ember.inject.service(\'team-service\'),\n     5 |  timer: Ember.inject.service(\'timer-service\'),\n-----------------------^\n     6 |  words: Ember.inject.service(\'word-service\'),\n     7 |  actions: {\ndisallowDirectPropertyAccess: Avoid accessing Ember.inject directly at components/play-game.js :\n     4 |  teams: Ember.inject.service(\'team-service\'),\n     5 |  timer: Ember.inject.service(\'timer-service\'),\n     6 |  words: Ember.inject.service(\'word-service\'),\n-----------------------^\n     7 |  actions: {\n     8 |    nextWord() {\ndisallowDirectPropertyAccess: Avoid accessing Ember.$ directly at components/play-game.js :\n    12 |  },\n    13 |  didInsertElement() {\n    14 |    Ember.$.getJSON(\"data/752MostCommonLyricWordsInDictionary.json\").then((someWords) => {\n----------------^\n    15 |      this.get(\'words\').initialize(someWords);\n    16 |      this.get(\'timer\').reset();\nvalidateQuoteMarks: Invalid quote mark found at components/play-game.js :\n    12 |  },\n    13 |  didInsertElement() {\n    14 |    Ember.$.getJSON(\"data/752MostCommonLyricWordsInDictionary.json\").then((someWords) => {\n----------------------------^\n    15 |      this.get(\'words\').initialize(someWords);\n    16 |      this.get(\'timer\').reset();');
+  });
+});
+define('lyricsss/tests/components/play-game.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/play-game.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/play-game.js should pass jshint.');
+  });
+});
 define('lyricsss/tests/components/splash-page.jscs-test', ['exports'], function (exports) {
   'use strict';
 
@@ -238,6 +256,164 @@ define('lyricsss/tests/helpers/start-app.jshint', ['exports'], function (exports
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/start-app.js should pass jshint.');
+  });
+});
+define('lyricsss/tests/integration/components/play-game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('play-game', 'Integration | Component | play game', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.2',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 13
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'play-game', ['loc', [null, [1, 0], [1, 13]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'fragmentReason': false,
+            'revision': 'Ember@2.6.2',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.2',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'play-game', [], [], 0, null, ['loc', [null, [2, 4], [4, 18]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('lyricsss/tests/integration/components/play-game-test.jscs-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSCS - integration/components/play-game-test.js');
+  QUnit.test('should pass jscs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/play-game-test.js should pass jscs.');
+  });
+});
+define('lyricsss/tests/integration/components/play-game-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/play-game-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/play-game-test.js should pass jshint.');
   });
 });
 define('lyricsss/tests/integration/components/splash-page-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -1090,7 +1266,7 @@ define('lyricsss/tests/routes/main.jscs-test', ['exports'], function (exports) {
   QUnit.module('JSCS - routes/main.js');
   QUnit.test('should pass jscs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/main.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Route directly at routes/main.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Route.extend({\n-----------------------------^\n     4 |  model() {\n     5 |    return Ember.$.getJSON(\"data/752MostCommonLyricWordsInDictionary.json\");\ndisallowDirectPropertyAccess: Avoid accessing Ember.$ directly at routes/main.js :\n     3 |export default Ember.Route.extend({\n     4 |  model() {\n     5 |    return Ember.$.getJSON(\"data/752MostCommonLyricWordsInDictionary.json\");\n-----------------------^\n     6 |  }\n     7 |});\nvalidateQuoteMarks: Invalid quote mark found at routes/main.js :\n     3 |export default Ember.Route.extend({\n     4 |  model() {\n     5 |    return Ember.$.getJSON(\"data/752MostCommonLyricWordsInDictionary.json\");\n-----------------------------------^\n     6 |  }\n     7 |});');
+    assert.ok(false, 'routes/main.js should pass jscs.\ndisallowDirectPropertyAccess: Avoid accessing Ember.Route directly at routes/main.js :\n     1 |import Ember from \'ember\';\n     2 |\n     3 |export default Ember.Route.extend({\n-----------------------------^\n     4 |});\n     5 |');
   });
 });
 define('lyricsss/tests/routes/main.jshint', ['exports'], function (exports) {

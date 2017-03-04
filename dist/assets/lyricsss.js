@@ -286,6 +286,27 @@ define('lyricsss/components/ember-wormhole', ['exports', 'ember-wormhole/compone
     }
   });
 });
+define('lyricsss/components/play-game', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    teams: _ember['default'].inject.service('team-service'),
+    timer: _ember['default'].inject.service('timer-service'),
+    words: _ember['default'].inject.service('word-service'),
+    actions: {
+      nextWord: function nextWord() {
+        this.get('words').changeWord();
+        this.get('timer').reset();
+      }
+    },
+    didInsertElement: function didInsertElement() {
+      var _this = this;
+
+      _ember['default'].$.getJSON("data/752MostCommonLyricWordsInDictionary.json").then(function (someWords) {
+        _this.get('words').initialize(someWords);
+        _this.get('timer').reset();
+      });
+    }
+  });
+});
 define('lyricsss/components/splash-page', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({});
 });
@@ -676,12 +697,8 @@ define('lyricsss/router', ['exports', 'ember', 'lyricsss/config/environment'], f
 
   exports['default'] = Router;
 });
-define("lyricsss/routes/main", ["exports", "ember"], function (exports, _ember) {
-  exports["default"] = _ember["default"].Route.extend({
-    model: function model() {
-      return _ember["default"].$.getJSON("data/752MostCommonLyricWordsInDictionary.json");
-    }
-  });
+define('lyricsss/routes/main', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({});
 });
 define('lyricsss/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _emberAjaxServicesAjax) {
   Object.defineProperty(exports, 'default', {
@@ -4718,6 +4735,101 @@ define("lyricsss/templates/components/form-element/vertical/textarea", ["exports
     };
   })());
 });
+define("lyricsss/templates/components/play-game", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "triple-curlies"
+        },
+        "revision": "Ember@2.6.2",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 12,
+            "column": 0
+          }
+        },
+        "moduleName": "lyricsss/templates/components/play-game.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1, "class", "fullscreen flex-center");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("h1");
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2, "class", "button-card flex-row");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("button");
+        dom.setAttribute(el3, "type", "button");
+        dom.setAttribute(el3, "class", "btn btn-default");
+        var el4 = dom.createElement("span");
+        dom.setAttribute(el4, "class", "glyphicon glyphicon-fast-forward");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [1]);
+        var element2 = dom.childAt(element0, [3, 1]);
+        var morphs = new Array(6);
+        morphs[0] = dom.createAttrMorph(element1, 'class');
+        morphs[1] = dom.createMorphAt(dom.childAt(element1, [1]), 0, 0);
+        morphs[2] = dom.createElementMorph(element2);
+        morphs[3] = dom.createMorphAt(element0, 5, 5);
+        morphs[4] = dom.createMorphAt(element0, 7, 7);
+        morphs[5] = dom.createMorphAt(element0, 9, 9);
+        return morphs;
+      },
+      statements: [["attribute", "class", ["concat", ["lyrics-card ", ["get", "teams.active", ["loc", [null, [2, 28], [2, 40]]]], " flex-center"]]], ["content", "words.currentWord", ["loc", [null, [3, 8], [3, 29]]]], ["element", "action", ["nextWord"], [], ["loc", [null, [6, 50], [6, 71]]]], ["content", "timer-component", ["loc", [null, [8, 2], [8, 21]]]], ["content", "team-component", ["loc", [null, [9, 2], [9, 20]]]], ["content", "word-history", ["loc", [null, [10, 2], [10, 18]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
 define("lyricsss/templates/components/splash-page", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -5456,6 +5568,52 @@ define("lyricsss/templates/main", ["exports"], function (exports) {
     };
   })());
 });
+define("lyricsss/templates/route-play-game", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "missing-wrapper",
+          "problems": ["wrong-type"]
+        },
+        "revision": "Ember@2.6.2",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 0
+          }
+        },
+        "moduleName": "lyricsss/templates/route-play-game.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+        dom.insertBoundary(fragment, 0);
+        return morphs;
+      },
+      statements: [["content", "play-game", ["loc", [null, [1, 0], [1, 13]]]]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
 define("lyricsss/templates/route-splash-page", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -5534,7 +5692,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+80b995ae"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+bf096601"});
 }
 
 /* jshint ignore:end */
