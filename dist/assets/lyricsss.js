@@ -303,8 +303,8 @@ define('lyricsss/router', ['exports', 'lyricsss/config/environment'], function (
 
   exports.default = Router;
 });
-define("lyricsss/routes/main", ["exports"], function (exports) {
-  "use strict";
+define('lyricsss/routes/main', ['exports'], function (exports) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -374,6 +374,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+f83913b0"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+6f23714a"});
 }
 //# sourceMappingURL=lyricsss.map

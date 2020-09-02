@@ -12,7 +12,7 @@ define('lyricsss/tests/app.lint-test', [], function () {
 
   QUnit.test('components/lyrics-card.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/lyrics-card.js should pass ESLint\n\n3:16 - Use import Component from \'@ember/component\'; instead of using Ember.Component (ember/new-module-imports)');
+    assert.ok(true, 'components/lyrics-card.js should pass ESLint\n\n');
   });
 
   QUnit.test('resolver.js', function (assert) {
@@ -27,7 +27,7 @@ define('lyricsss/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/main.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/main.js should pass ESLint\n\n3:16 - Use import Route from \'@ember/routing/route\'; instead of using Ember.Route (ember/new-module-imports)\n5:12 - Use import $ from \'jquery\'; instead of using Ember.$ (ember/new-module-imports)');
+    assert.ok(true, 'routes/main.js should pass ESLint\n\n');
   });
 });
 define('lyricsss/tests/helpers/destroy-app', ['exports'], function (exports) {
