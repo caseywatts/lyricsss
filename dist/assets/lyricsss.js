@@ -374,6 +374,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+6f23714a"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+4c190ed0"});
 }
 //# sourceMappingURL=lyricsss.map
