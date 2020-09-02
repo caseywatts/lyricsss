@@ -1,39 +1,32 @@
 "use strict";
 
-/* jshint ignore:start */
 
 
+define('lyricsss/app', ['exports', 'lyricsss/resolver', 'ember-load-initializers', 'lyricsss/config/environment'], function (exports, _resolver, _emberLoadInitializers, _environment) {
+  'use strict';
 
-/* jshint ignore:end */
-
-define('lyricsss/app', ['exports', 'ember', 'lyricsss/resolver', 'ember-load-initializers', 'lyricsss/config/environment'], function (exports, _ember, _lyricsssResolver, _emberLoadInitializers, _lyricsssConfigEnvironment) {
-
-  var App = undefined;
-
-  _ember['default'].MODEL_FACTORY_INJECTIONS = true;
-
-  App = _ember['default'].Application.extend({
-    modulePrefix: _lyricsssConfigEnvironment['default'].modulePrefix,
-    podModulePrefix: _lyricsssConfigEnvironment['default'].podModulePrefix,
-    Resolver: _lyricsssResolver['default']
+  Object.defineProperty(exports, "__esModule", {
+    value: true
   });
 
-  (0, _emberLoadInitializers['default'])(App, _lyricsssConfigEnvironment['default'].modulePrefix);
 
-  exports['default'] = App;
-});
-define('lyricsss/components/app-version', ['exports', 'ember-cli-app-version/components/app-version', 'lyricsss/config/environment'], function (exports, _emberCliAppVersionComponentsAppVersion, _lyricsssConfigEnvironment) {
-
-  var name = _lyricsssConfigEnvironment['default'].APP.name;
-  var version = _lyricsssConfigEnvironment['default'].APP.version;
-
-  exports['default'] = _emberCliAppVersionComponentsAppVersion['default'].extend({
-    version: version,
-    name: name
+  var App = Ember.Application.extend({
+    modulePrefix: _environment.default.modulePrefix,
+    podModulePrefix: _environment.default.podModulePrefix,
+    Resolver: _resolver.default
   });
+
+  (0, _emberLoadInitializers.default)(App, _environment.default.modulePrefix);
+
+  exports.default = App;
 });
-define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Component.extend({
+define('lyricsss/components/lyrics-card', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Component.extend({
     init: function init() {
       this._super.apply(this, arguments);
       this.set('someWords', this.randomize(this.get('someWords')));
@@ -59,490 +52,328 @@ define('lyricsss/components/lyrics-card', ['exports', 'ember'], function (export
     }
   });
 });
-define('lyricsss/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
-  exports['default'] = _emberInflectorLibHelpersPluralize['default'];
+define('lyricsss/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _welcomePage) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _welcomePage.default;
+    }
+  });
 });
-define('lyricsss/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
-  exports['default'] = _emberInflectorLibHelpersSingularize['default'];
+define('lyricsss/helpers/app-version', ['exports', 'lyricsss/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _environment, _regexp) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.appVersion = appVersion;
+  function appVersion(_) {
+    var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var version = _environment.default.APP.version;
+    // e.g. 1.0.0-alpha.1+4jds75hf
+
+    // Allow use of 'hideSha' and 'hideVersion' For backwards compatibility
+    var versionOnly = hash.versionOnly || hash.hideSha;
+    var shaOnly = hash.shaOnly || hash.hideVersion;
+
+    var match = null;
+
+    if (versionOnly) {
+      if (hash.showExtended) {
+        match = version.match(_regexp.versionExtendedRegExp); // 1.0.0-alpha.1
+      }
+      // Fallback to just version
+      if (!match) {
+        match = version.match(_regexp.versionRegExp); // 1.0.0
+      }
+    }
+
+    if (shaOnly) {
+      match = version.match(_regexp.shaRegExp); // 4jds75hf
+    }
+
+    return match ? match[0] : version;
+  }
+
+  exports.default = Ember.Helper.helper(appVersion);
 });
-define('lyricsss/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'lyricsss/config/environment'], function (exports, _emberCliAppVersionInitializerFactory, _lyricsssConfigEnvironment) {
-  exports['default'] = {
+define('lyricsss/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _pluralize) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _pluralize.default;
+});
+define('lyricsss/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _singularize) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _singularize.default;
+});
+define('lyricsss/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'lyricsss/config/environment'], function (exports, _initializerFactory, _environment) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+
+  var name = void 0,
+      version = void 0;
+  if (_environment.default.APP) {
+    name = _environment.default.APP.name;
+    version = _environment.default.APP.version;
+  }
+
+  exports.default = {
     name: 'App Version',
-    initialize: (0, _emberCliAppVersionInitializerFactory['default'])(_lyricsssConfigEnvironment['default'].APP.name, _lyricsssConfigEnvironment['default'].APP.version)
+    initialize: (0, _initializerFactory.default)(name, version)
   };
 });
-define('lyricsss/initializers/container-debug-adapter', ['exports', 'ember-resolver/container-debug-adapter'], function (exports, _emberResolverContainerDebugAdapter) {
-  exports['default'] = {
+define('lyricsss/initializers/container-debug-adapter', ['exports', 'ember-resolver/resolvers/classic/container-debug-adapter'], function (exports, _containerDebugAdapter) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: 'container-debug-adapter',
 
     initialize: function initialize() {
       var app = arguments[1] || arguments[0];
 
-      app.register('container-debug-adapter:main', _emberResolverContainerDebugAdapter['default']);
+      app.register('container-debug-adapter:main', _containerDebugAdapter.default);
       app.inject('container-debug-adapter:main', 'namespace', 'application:main');
     }
   };
 });
-define('lyricsss/initializers/data-adapter', ['exports', 'ember'], function (exports, _ember) {
+define('lyricsss/initializers/data-adapter', ['exports'], function (exports) {
+  'use strict';
 
-  /*
-    This initializer is here to keep backwards compatibility with code depending
-    on the `data-adapter` initializer (before Ember Data was an addon).
-  
-    Should be removed for Ember Data 3.x
-  */
-
-  exports['default'] = {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: 'data-adapter',
     before: 'store',
-    initialize: _ember['default'].K
+    initialize: function initialize() {}
   };
 });
-define('lyricsss/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data/-private/core'], function (exports, _emberDataSetupContainer, _emberDataPrivateCore) {
+define('lyricsss/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data'], function (exports, _setupContainer) {
+  'use strict';
 
-  /*
-  
-    This code initializes Ember-Data onto an Ember application.
-  
-    If an Ember.js developer defines a subclass of DS.Store on their application,
-    as `App.StoreService` (or via a module system that resolves to `service:store`)
-    this code will automatically instantiate it and make it available on the
-    router.
-  
-    Additionally, after an application's controllers have been injected, they will
-    each have the store made available to them.
-  
-    For example, imagine an Ember.js application with the following classes:
-  
-    App.StoreService = DS.Store.extend({
-      adapter: 'custom'
-    });
-  
-    App.PostsController = Ember.ArrayController.extend({
-      // ...
-    });
-  
-    When the application is initialized, `App.ApplicationStore` will automatically be
-    instantiated, and the instance of `App.PostsController` will have its `store`
-    property set to that instance.
-  
-    Note that this code will only be run if the `ember-application` package is
-    loaded. If Ember Data is being used in an environment other than a
-    typical application (e.g., node.js where only `ember-runtime` is available),
-    this code will be ignored.
-  */
-
-  exports['default'] = {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: 'ember-data',
-    initialize: _emberDataSetupContainer['default']
+    initialize: _setupContainer.default
   };
 });
-define('lyricsss/initializers/export-application-global', ['exports', 'ember', 'lyricsss/config/environment'], function (exports, _ember, _lyricsssConfigEnvironment) {
-  exports.initialize = initialize;
+define('lyricsss/initializers/export-application-global', ['exports', 'lyricsss/config/environment'], function (exports, _environment) {
+  'use strict';
 
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.initialize = initialize;
   function initialize() {
     var application = arguments[1] || arguments[0];
-    if (_lyricsssConfigEnvironment['default'].exportApplicationGlobal !== false) {
-      var value = _lyricsssConfigEnvironment['default'].exportApplicationGlobal;
+    if (_environment.default.exportApplicationGlobal !== false) {
+      var theGlobal;
+      if (typeof window !== 'undefined') {
+        theGlobal = window;
+      } else if (typeof global !== 'undefined') {
+        theGlobal = global;
+      } else if (typeof self !== 'undefined') {
+        theGlobal = self;
+      } else {
+        // no reasonable global, just bail
+        return;
+      }
+
+      var value = _environment.default.exportApplicationGlobal;
       var globalName;
 
       if (typeof value === 'string') {
         globalName = value;
       } else {
-        globalName = _ember['default'].String.classify(_lyricsssConfigEnvironment['default'].modulePrefix);
+        globalName = Ember.String.classify(_environment.default.modulePrefix);
       }
 
-      if (!window[globalName]) {
-        window[globalName] = application;
+      if (!theGlobal[globalName]) {
+        theGlobal[globalName] = application;
 
         application.reopen({
           willDestroy: function willDestroy() {
             this._super.apply(this, arguments);
-            delete window[globalName];
+            delete theGlobal[globalName];
           }
         });
       }
     }
   }
 
-  exports['default'] = {
+  exports.default = {
     name: 'export-application-global',
 
     initialize: initialize
   };
 });
-define('lyricsss/initializers/injectStore', ['exports', 'ember'], function (exports, _ember) {
+define('lyricsss/initializers/injectStore', ['exports'], function (exports) {
+  'use strict';
 
-  /*
-    This initializer is here to keep backwards compatibility with code depending
-    on the `injectStore` initializer (before Ember Data was an addon).
-  
-    Should be removed for Ember Data 3.x
-  */
-
-  exports['default'] = {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: 'injectStore',
     before: 'store',
-    initialize: _ember['default'].K
+    initialize: function initialize() {}
   };
 });
-define('lyricsss/initializers/store', ['exports', 'ember'], function (exports, _ember) {
+define('lyricsss/initializers/store', ['exports'], function (exports) {
+  'use strict';
 
-  /*
-    This initializer is here to keep backwards compatibility with code depending
-    on the `store` initializer (before Ember Data was an addon).
-  
-    Should be removed for Ember Data 3.x
-  */
-
-  exports['default'] = {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: 'store',
     after: 'ember-data',
-    initialize: _ember['default'].K
+    initialize: function initialize() {}
   };
 });
-define('lyricsss/initializers/transforms', ['exports', 'ember'], function (exports, _ember) {
+define('lyricsss/initializers/transforms', ['exports'], function (exports) {
+  'use strict';
 
-  /*
-    This initializer is here to keep backwards compatibility with code depending
-    on the `transforms` initializer (before Ember Data was an addon).
-  
-    Should be removed for Ember Data 3.x
-  */
-
-  exports['default'] = {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: 'transforms',
     before: 'store',
-    initialize: _ember['default'].K
+    initialize: function initialize() {}
   };
 });
-define("lyricsss/instance-initializers/ember-data", ["exports", "ember-data/-private/instance-initializers/initialize-store-service"], function (exports, _emberDataPrivateInstanceInitializersInitializeStoreService) {
-  exports["default"] = {
+define("lyricsss/instance-initializers/ember-data", ["exports", "ember-data/instance-initializers/initialize-store-service"], function (exports, _initializeStoreService) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
     name: "ember-data",
-    initialize: _emberDataPrivateInstanceInitializersInitializeStoreService["default"]
+    initialize: _initializeStoreService.default
   };
 });
 define('lyricsss/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
-  exports['default'] = _emberResolver['default'];
-});
-define('lyricsss/router', ['exports', 'ember', 'lyricsss/config/environment'], function (exports, _ember, _lyricsssConfigEnvironment) {
+  'use strict';
 
-  var Router = _ember['default'].Router.extend({
-    location: _lyricsssConfigEnvironment['default'].locationType
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberResolver.default;
+});
+define('lyricsss/router', ['exports', 'lyricsss/config/environment'], function (exports, _environment) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+
+  var Router = Ember.Router.extend({
+    location: _environment.default.locationType,
+    rootURL: _environment.default.rootURL
   });
 
   Router.map(function () {
     this.route('main', { path: '' });
   });
 
-  exports['default'] = Router;
+  exports.default = Router;
 });
-define("lyricsss/routes/main", ["exports", "ember"], function (exports, _ember) {
-  exports["default"] = _ember["default"].Route.extend({
+define("lyricsss/routes/main", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({
     model: function model() {
-      return _ember["default"].$.getJSON("data/3767MostCommonLyricWordsInDictionary.json");
+      return Ember.$.getJSON("data/752MostCommonLyricWordsInDictionary.json");
     }
   });
 });
-define('lyricsss/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _emberAjaxServicesAjax) {
+define('lyricsss/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _ajax) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
   Object.defineProperty(exports, 'default', {
     enumerable: true,
-    get: function get() {
-      return _emberAjaxServicesAjax['default'];
+    get: function () {
+      return _ajax.default;
     }
   });
 });
+define("lyricsss/templates/application", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "w5FOQWhk", "block": "{\"statements\":[[1,[26,[\"main\"]],false],[0,\"\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "lyricsss/templates/application.hbs" } });
+});
 define("lyricsss/templates/components/lyrics-card", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template((function () {
-    var child0 = (function () {
-      return {
-        meta: {
-          "fragmentReason": {
-            "name": "triple-curlies"
-          },
-          "revision": "Ember@2.6.2",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 1,
-              "column": 0
-            },
-            "end": {
-              "line": 16,
-              "column": 0
-            }
-          },
-          "moduleName": "lyricsss/templates/components/lyrics-card.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createElement("div");
-          dom.setAttribute(el1, "class", "splash-screen blue-card flex-center");
-          var el2 = dom.createTextNode("\n  ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("div");
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("h1");
-          var el4 = dom.createTextNode("Lyricsss");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("p");
-          var el4 = dom.createTextNode("A deck of cards, each with a common song lyric.");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("br");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("h3");
-          var el4 = dom.createTextNode("Casual");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n      ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("p");
-          var el4 = dom.createTextNode("Try and come up with as many songs as you can for each lyric before moving on to the next one.");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("h3");
-          var el4 = dom.createTextNode("Competitive");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("p");
-          var el4 = dom.createTextNode(" Each team has to come up with a new song before passing play to the other team. When one team doesn't come up with one in 30 seconds, the other team gets a point!");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("br");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("br");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("p");
-          var el4 = dom.createElement("small");
-          var el5 = dom.createTextNode("(click/tap to continue)");
-          dom.appendChild(el4, el5);
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n  ");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
-    var child1 = (function () {
-      return {
-        meta: {
-          "fragmentReason": false,
-          "revision": "Ember@2.6.2",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 18,
-              "column": 0
-            },
-            "end": {
-              "line": 24,
-              "column": 0
-            }
-          },
-          "moduleName": "lyricsss/templates/components/lyrics-card.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createElement("div");
-          dom.setAttribute(el1, "class", "fullscreen flex-center");
-          var el2 = dom.createTextNode("\n  ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("div");
-          dom.setAttribute(el2, "class", "lyrics-card blue-card flex-center");
-          var el3 = dom.createTextNode("\n    ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("h1");
-          var el4 = dom.createComment("");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n  ");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 1]), 0, 0);
-          return morphs;
-        },
-        statements: [["content", "aRandomLyric", ["loc", [null, [21, 8], [21, 24]]]]],
-        locals: [],
-        templates: []
-      };
-    })();
-    return {
-      meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type", "multiple-nodes"]
-        },
-        "revision": "Ember@2.6.2",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 25,
-            "column": 0
-          }
-        },
-        "moduleName": "lyricsss/templates/components/lyrics-card.hbs"
-      },
-      isEmpty: false,
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        morphs[1] = dom.createMorphAt(fragment, 2, 2, contextualElement);
-        dom.insertBoundary(fragment, 0);
-        dom.insertBoundary(fragment, null);
-        return morphs;
-      },
-      statements: [["block", "if", [["get", "showSplashScreen", ["loc", [null, [1, 6], [1, 22]]]]], [], 0, null, ["loc", [null, [1, 0], [16, 7]]]], ["block", "if", [["get", "showCards", ["loc", [null, [18, 6], [18, 15]]]]], [], 1, null, ["loc", [null, [18, 0], [24, 7]]]]],
-      locals: [],
-      templates: [child0, child1]
-    };
-  })());
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "poTOUWVG", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"showSplashScreen\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"splash-screen blue-card flex-center\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[13],[0,\"\\n    \"],[11,\"h1\",[]],[13],[0,\"Lyricsss\"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"A deck of cards, each with a common song lyric.\"],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"h3\",[]],[13],[0,\"Casual\"],[14],[0,\"\\n      \"],[11,\"p\",[]],[13],[0,\"Try and come up with as many songs as you can for each lyric before moving on to the next one.\"],[14],[0,\"\\n    \"],[11,\"h3\",[]],[13],[0,\"Competitive\"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\" Each team has to come up with a new song before passing play to the other team. When one team doesn't come up with one in 30 seconds, the other team gets a point!\"],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[11,\"small\",[]],[13],[0,\"(click/tap to continue)\"],[14],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showCards\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"fullscreen flex-center\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"lyrics-card blue-card flex-center\"],[13],[0,\"\\n    \"],[11,\"h1\",[]],[13],[1,[26,[\"aRandomLyric\"]],false],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "lyricsss/templates/components/lyrics-card.hbs" } });
 });
 define("lyricsss/templates/main", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template((function () {
-    return {
-      meta: {
-        "fragmentReason": {
-          "name": "missing-wrapper",
-          "problems": ["wrong-type"]
-        },
-        "revision": "Ember@2.6.2",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 2,
-            "column": 0
-          }
-        },
-        "moduleName": "lyricsss/templates/main.hbs"
-      },
-      isEmpty: false,
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        dom.insertBoundary(fragment, 0);
-        return morphs;
-      },
-      statements: [["inline", "lyrics-card", [], ["someWords", ["subexpr", "@mut", [["get", "model", ["loc", [null, [1, 24], [1, 29]]]]], [], []]], ["loc", [null, [1, 0], [1, 31]]]]],
-      locals: [],
-      templates: []
-    };
-  })());
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "BHR6JJu+", "block": "{\"statements\":[[1,[33,[\"lyrics-card\"],null,[[\"someWords\"],[[28,[\"model\"]]]]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "lyricsss/templates/main.hbs" } });
 });
-/* jshint ignore:start */
 
-
-
-/* jshint ignore:end */
-
-/* jshint ignore:start */
 
 define('lyricsss/config/environment', ['ember'], function(Ember) {
   var prefix = 'lyricsss';
-/* jshint ignore:start */
-
 try {
   var metaName = prefix + '/config/environment';
-  var rawConfig = Ember['default'].$('meta[name="' + metaName + '"]').attr('content');
+  var rawConfig = document.querySelector('meta[name="' + metaName + '"]').getAttribute('content');
   var config = JSON.parse(unescape(rawConfig));
 
-  return { 'default': config };
+  var exports = { 'default': config };
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+  return exports;
 }
 catch(err) {
   throw new Error('Could not read config from meta tag with name "' + metaName + '".');
 }
 
-/* jshint ignore:end */
-
 });
 
-/* jshint ignore:end */
-
-/* jshint ignore:start */
-
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+dd5479ea"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+6679f125"});
 }
-
-/* jshint ignore:end */
 //# sourceMappingURL=lyricsss.map
