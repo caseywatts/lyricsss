@@ -265,7 +265,7 @@ define('lyricsss/initializers/transforms', ['exports'], function (exports) {
     initialize: function initialize() {}
   };
 });
-define("lyricsss/instance-initializers/ember-data", ["exports", "ember-data/instance-initializers/initialize-store-service"], function (exports, _initializeStoreService) {
+define("lyricsss/instance-initializers/ember-data", ["exports", "ember-data/initialize-store-service"], function (exports, _initializeStoreService) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -334,7 +334,7 @@ define("lyricsss/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "w5FOQWhk", "block": "{\"statements\":[[1,[26,[\"main\"]],false],[0,\"\\n\"],[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "lyricsss/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "jQ23g8Ws", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"main\"],false],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "lyricsss/templates/application.hbs" } });
 });
 define("lyricsss/templates/components/lyrics-card", ["exports"], function (exports) {
   "use strict";
@@ -342,7 +342,7 @@ define("lyricsss/templates/components/lyrics-card", ["exports"], function (expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "poTOUWVG", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"showSplashScreen\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"splash-screen blue-card flex-center\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[13],[0,\"\\n    \"],[11,\"h1\",[]],[13],[0,\"Lyricsss\"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\"A deck of cards, each with a common song lyric.\"],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"h3\",[]],[13],[0,\"Casual\"],[14],[0,\"\\n      \"],[11,\"p\",[]],[13],[0,\"Try and come up with as many songs as you can for each lyric before moving on to the next one.\"],[14],[0,\"\\n    \"],[11,\"h3\",[]],[13],[0,\"Competitive\"],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[0,\" Each team has to come up with a new song before passing play to the other team. When one team doesn't come up with one in 30 seconds, the other team gets a point!\"],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[11,\"p\",[]],[13],[11,\"small\",[]],[13],[0,\"(click/tap to continue)\"],[14],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showCards\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"fullscreen flex-center\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"lyrics-card blue-card flex-center\"],[13],[0,\"\\n    \"],[11,\"h1\",[]],[13],[1,[26,[\"aRandomLyric\"]],false],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "lyricsss/templates/components/lyrics-card.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "mYwvYa0N", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[20,[\"showSplashScreen\"]]],null,{\"statements\":[[6,\"div\"],[9,\"class\",\"splash-screen blue-card flex-center\"],[7],[0,\"\\n  \"],[6,\"div\"],[7],[0,\"\\n    \"],[6,\"h1\"],[7],[0,\"Lyricsss\"],[8],[0,\"\\n    \"],[6,\"p\"],[7],[0,\"A deck of cards, each with a common song lyric.\"],[8],[0,\"\\n    \"],[6,\"br\"],[7],[8],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"Casual\"],[8],[0,\"\\n      \"],[6,\"p\"],[7],[0,\"Try and come up with as many songs as you can for each lyric before moving on to the next one.\"],[8],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"Competitive\"],[8],[0,\"\\n    \"],[6,\"p\"],[7],[0,\" Each team has to come up with a new song before passing play to the other team. When one team doesn't come up with one in 30 seconds, the other team gets a point!\"],[8],[0,\"\\n    \"],[6,\"br\"],[7],[8],[0,\"\\n    \"],[6,\"br\"],[7],[8],[0,\"\\n    \"],[6,\"p\"],[7],[6,\"small\"],[7],[0,\"(click/tap to continue)\"],[8],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showCards\"]]],null,{\"statements\":[[6,\"div\"],[9,\"class\",\"fullscreen flex-center\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"lyrics-card blue-card flex-center\"],[7],[0,\"\\n    \"],[6,\"h1\"],[7],[1,[18,\"aRandomLyric\"],false],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "lyricsss/templates/components/lyrics-card.hbs" } });
 });
 define("lyricsss/templates/main", ["exports"], function (exports) {
   "use strict";
@@ -350,11 +350,11 @@ define("lyricsss/templates/main", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "BHR6JJu+", "block": "{\"statements\":[[1,[33,[\"lyrics-card\"],null,[[\"someWords\"],[[28,[\"model\"]]]]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "lyricsss/templates/main.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "B9ePW15z", "block": "{\"symbols\":[],\"statements\":[[1,[25,\"lyrics-card\",null,[[\"someWords\"],[[20,[\"model\"]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "lyricsss/templates/main.hbs" } });
 });
 
 
-define('lyricsss/config/environment', ['ember'], function(Ember) {
+define('lyricsss/config/environment', [], function() {
   var prefix = 'lyricsss';
 try {
   var metaName = prefix + '/config/environment';
@@ -374,6 +374,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+6679f125"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+f83913b0"});
 }
 //# sourceMappingURL=lyricsss.map

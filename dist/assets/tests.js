@@ -12,7 +12,7 @@ define('lyricsss/tests/app.lint-test', [], function () {
 
   QUnit.test('components/lyrics-card.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/lyrics-card.js should pass ESLint\n\n');
+    assert.ok(false, 'components/lyrics-card.js should pass ESLint\n\n3:16 - Use import Component from \'@ember/component\'; instead of using Ember.Component (ember/new-module-imports)');
   });
 
   QUnit.test('resolver.js', function (assert) {
@@ -27,7 +27,7 @@ define('lyricsss/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/main.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/main.js should pass ESLint\n\n');
+    assert.ok(false, 'routes/main.js should pass ESLint\n\n3:16 - Use import Route from \'@ember/routing/route\'; instead of using Ember.Route (ember/new-module-imports)\n5:12 - Use import $ from \'jquery\'; instead of using Ember.$ (ember/new-module-imports)');
   });
 });
 define('lyricsss/tests/helpers/destroy-app', ['exports'], function (exports) {
@@ -63,31 +63,12 @@ define('lyricsss/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'lyr
         var _this = this;
 
         var afterEach = options.afterEach && options.afterEach.apply(this, arguments);
-        return resolve(afterEach).then(function () {
+        return Ember.RSVP.resolve(afterEach).then(function () {
           return (0, _destroyApp.default)(_this.application);
         });
       }
     });
   };
-
-  var resolve = Ember.RSVP.resolve;
-});
-define('lyricsss/tests/helpers/resolver', ['exports', 'lyricsss/resolver', 'lyricsss/config/environment'], function (exports, _resolver, _environment) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-
-  var resolver = _resolver.default.create();
-
-  resolver.namespace = {
-    modulePrefix: _environment.default.modulePrefix,
-    podModulePrefix: _environment.default.podModulePrefix
-  };
-
-  exports.default = resolver;
 });
 define('lyricsss/tests/helpers/start-app', ['exports', 'lyricsss/app', 'lyricsss/config/environment'], function (exports, _app, _environment) {
   'use strict';
@@ -98,6 +79,7 @@ define('lyricsss/tests/helpers/start-app', ['exports', 'lyricsss/app', 'lyricsss
   exports.default = startApp;
   function startApp(attrs) {
     var attributes = Ember.merge({}, _environment.default.APP);
+    attributes.autoboot = true;
     attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;
 
     return Ember.run(function () {
@@ -120,8 +102,8 @@ define('lyricsss/tests/integration/components/lyrics-card-test', ['ember-qunit']
     // Handle any actions with this.on('myAction', function(val) { ... });
 
     this.render(Ember.HTMLBars.template({
-      "id": "er3/oIAQ",
-      "block": "{\"statements\":[[1,[26,[\"lyrics-card\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "id": "0KH5e8SC",
+      "block": "{\"symbols\":[],\"statements\":[[1,[18,\"lyrics-card\"],false]],\"hasEval\":false}",
       "meta": {}
     }));
 
@@ -129,19 +111,20 @@ define('lyricsss/tests/integration/components/lyrics-card-test', ['ember-qunit']
 
     // Template block usage:
     this.render(Ember.HTMLBars.template({
-      "id": "ArgFqi2+",
-      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"lyrics-card\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "id": "O7BuS/8C",
+      "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"lyrics-card\",null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"parameters\":[]},null],[0,\"  \"]],\"hasEval\":false}",
       "meta": {}
     }));
 
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('lyricsss/tests/test-helper', ['lyricsss/tests/helpers/resolver', 'ember-qunit', 'ember-cli-qunit'], function (_resolver, _emberQunit, _emberCliQunit) {
+define('lyricsss/tests/test-helper', ['lyricsss/app', 'lyricsss/config/environment', '@ember/test-helpers', 'ember-qunit'], function (_app, _environment, _testHelpers, _emberQunit) {
   'use strict';
 
-  (0, _emberQunit.setResolver)(_resolver.default);
-  (0, _emberCliQunit.start)();
+  (0, _testHelpers.setApplication)(_app.default.create(_environment.default.APP));
+
+  (0, _emberQunit.start)();
 });
 define('lyricsss/tests/tests.lint-test', [], function () {
   'use strict';
@@ -156,11 +139,6 @@ define('lyricsss/tests/tests.lint-test', [], function () {
   QUnit.test('helpers/module-for-acceptance.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/module-for-acceptance.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('helpers/resolver.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'helpers/resolver.js should pass ESLint\n\n');
   });
 
   QUnit.test('helpers/start-app.js', function (assert) {
