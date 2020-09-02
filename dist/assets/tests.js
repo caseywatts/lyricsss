@@ -30,66 +30,6 @@ define('lyricsss/tests/app.lint-test', [], function () {
     assert.ok(true, 'routes/main.js should pass ESLint\n\n');
   });
 });
-define('lyricsss/tests/helpers/destroy-app', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = destroyApp;
-  function destroyApp(application) {
-    Ember.run(application, 'destroy');
-  }
-});
-define('lyricsss/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'lyricsss/tests/helpers/start-app', 'lyricsss/tests/helpers/destroy-app'], function (exports, _qunit, _startApp, _destroyApp) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  exports.default = function (name) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    (0, _qunit.module)(name, {
-      beforeEach: function beforeEach() {
-        this.application = (0, _startApp.default)();
-
-        if (options.beforeEach) {
-          return options.beforeEach.apply(this, arguments);
-        }
-      },
-      afterEach: function afterEach() {
-        var _this = this;
-
-        var afterEach = options.afterEach && options.afterEach.apply(this, arguments);
-        return Ember.RSVP.resolve(afterEach).then(function () {
-          return (0, _destroyApp.default)(_this.application);
-        });
-      }
-    });
-  };
-});
-define('lyricsss/tests/helpers/start-app', ['exports', 'lyricsss/app', 'lyricsss/config/environment'], function (exports, _app, _environment) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = startApp;
-  function startApp(attrs) {
-    var attributes = Ember.merge({}, _environment.default.APP);
-    attributes.autoboot = true;
-    attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;
-
-    return Ember.run(function () {
-      var application = _app.default.create(attributes);
-      application.setupForTesting();
-      application.injectTestHelpers();
-      return application;
-    });
-  }
-});
 define('lyricsss/tests/integration/components/lyrics-card-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
@@ -131,21 +71,6 @@ define('lyricsss/tests/tests.lint-test', [], function () {
 
   QUnit.module('ESLint | tests');
 
-  QUnit.test('helpers/destroy-app.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'helpers/destroy-app.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('helpers/module-for-acceptance.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'helpers/module-for-acceptance.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('helpers/start-app.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'helpers/start-app.js should pass ESLint\n\n');
-  });
-
   QUnit.test('integration/components/lyrics-card-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/lyrics-card-test.js should pass ESLint\n\n');
@@ -175,7 +100,7 @@ define('lyricsss/tests/unit/routes/application-test', ['ember-qunit'], function 
   });
 
   (0, _emberQunit.test)('it exists', function (assert) {
-    var route = this.subject();
+    let route = this.subject();
     assert.ok(route);
   });
 });
@@ -188,10 +113,29 @@ define('lyricsss/tests/unit/routes/lyrics-card-test', ['ember-qunit'], function 
   });
 
   (0, _emberQunit.test)('it exists', function (assert) {
-    var route = this.subject();
+    let route = this.subject();
     assert.ok(route);
   });
 });
+define('lyricsss/config/environment', [], function() {
+  var prefix = 'lyricsss';
+try {
+  var metaName = prefix + '/config/environment';
+  var rawConfig = document.querySelector('meta[name="' + metaName + '"]').getAttribute('content');
+  var config = JSON.parse(unescape(rawConfig));
+
+  var exports = { 'default': config };
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+  return exports;
+}
+catch(err) {
+  throw new Error('Could not read config from meta tag with name "' + metaName + '".');
+}
+
+});
+
 require('lyricsss/tests/test-helper');
 EmberENV.TESTS_FILE_LOADED = true;
 //# sourceMappingURL=tests.map

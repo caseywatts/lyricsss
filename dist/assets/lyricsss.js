@@ -10,7 +10,7 @@ define('lyricsss/app', ['exports', 'lyricsss/resolver', 'ember-load-initializers
   });
 
 
-  var App = Ember.Application.extend({
+  const App = Ember.Application.extend({
     modulePrefix: _environment.default.modulePrefix,
     podModulePrefix: _environment.default.podModulePrefix,
     Resolver: _resolver.default
@@ -27,25 +27,25 @@ define('lyricsss/components/lyrics-card', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Component.extend({
-    init: function init() {
-      this._super.apply(this, arguments);
+    init() {
+      this._super(...arguments);
       this.set('someWords', this.randomize(this.get('someWords')));
       this.set('showSplashScreen', true);
       this.set('showCards', false);
     },
-    splashScreenToCards: function splashScreenToCards() {
+    splashScreenToCards() {
       this.set('showSplashScreen', false);
       this.set('showCards', true);
     },
-    touchEnd: function touchEnd() {
+    touchEnd() {
       this.click();
     },
-    click: function click() {
+    click() {
       this.splashScreenToCards();
-      var aRandomLyric = this.get('someWords').pop();
+      let aRandomLyric = this.get('someWords').pop();
       this.set('aRandomLyric', aRandomLyric);
     },
-    randomize: function randomize(words) {
+    randomize(words) {
       return words.sort(function () {
         return Math.random() - 0.5;
       });
@@ -72,17 +72,15 @@ define('lyricsss/helpers/app-version', ['exports', 'lyricsss/config/environment'
     value: true
   });
   exports.appVersion = appVersion;
-  function appVersion(_) {
-    var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    var version = _environment.default.APP.version;
+  function appVersion(_, hash = {}) {
+    const version = _environment.default.APP.version;
     // e.g. 1.0.0-alpha.1+4jds75hf
 
     // Allow use of 'hideSha' and 'hideVersion' For backwards compatibility
-    var versionOnly = hash.versionOnly || hash.hideSha;
-    var shaOnly = hash.shaOnly || hash.hideVersion;
+    let versionOnly = hash.versionOnly || hash.hideSha;
+    let shaOnly = hash.shaOnly || hash.hideVersion;
 
-    var match = null;
+    let match = null;
 
     if (versionOnly) {
       if (hash.showExtended) {
@@ -127,8 +125,7 @@ define('lyricsss/initializers/app-version', ['exports', 'ember-cli-app-version/i
   });
 
 
-  var name = void 0,
-      version = void 0;
+  let name, version;
   if (_environment.default.APP) {
     name = _environment.default.APP.name;
     version = _environment.default.APP.version;
@@ -148,24 +145,12 @@ define('lyricsss/initializers/container-debug-adapter', ['exports', 'ember-resol
   exports.default = {
     name: 'container-debug-adapter',
 
-    initialize: function initialize() {
-      var app = arguments[1] || arguments[0];
+    initialize() {
+      let app = arguments[1] || arguments[0];
 
       app.register('container-debug-adapter:main', _containerDebugAdapter.default);
       app.inject('container-debug-adapter:main', 'namespace', 'application:main');
     }
-  };
-});
-define('lyricsss/initializers/data-adapter', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'data-adapter',
-    before: 'store',
-    initialize: function initialize() {}
   };
 });
 define('lyricsss/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data'], function (exports, _setupContainer) {
@@ -214,7 +199,7 @@ define('lyricsss/initializers/export-application-global', ['exports', 'lyricsss/
         theGlobal[globalName] = application;
 
         application.reopen({
-          willDestroy: function willDestroy() {
+          willDestroy: function () {
             this._super.apply(this, arguments);
             delete theGlobal[globalName];
           }
@@ -227,42 +212,6 @@ define('lyricsss/initializers/export-application-global', ['exports', 'lyricsss/
     name: 'export-application-global',
 
     initialize: initialize
-  };
-});
-define('lyricsss/initializers/injectStore', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'injectStore',
-    before: 'store',
-    initialize: function initialize() {}
-  };
-});
-define('lyricsss/initializers/store', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'store',
-    after: 'ember-data',
-    initialize: function initialize() {}
-  };
-});
-define('lyricsss/initializers/transforms', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'transforms',
-    before: 'store',
-    initialize: function initialize() {}
   };
 });
 define("lyricsss/instance-initializers/ember-data", ["exports", "ember-data/initialize-store-service"], function (exports, _initializeStoreService) {
@@ -292,7 +241,7 @@ define('lyricsss/router', ['exports', 'lyricsss/config/environment'], function (
   });
 
 
-  var Router = Ember.Router.extend({
+  const Router = Ember.Router.extend({
     location: _environment.default.locationType,
     rootURL: _environment.default.rootURL
   });
@@ -310,7 +259,7 @@ define('lyricsss/routes/main', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    model: function model() {
+    model() {
       return Ember.$.getJSON("data/752MostCommonLyricWordsInDictionary.json");
     }
   });
@@ -374,6 +323,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+4c190ed0"});
+  require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+aadb54cf"});
 }
 //# sourceMappingURL=lyricsss.map
