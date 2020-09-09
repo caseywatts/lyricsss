@@ -358,7 +358,7 @@
 
   var _default = Ember.Route.extend({
     model() {
-      return _jquery.default.getJSON("data/752MostCommonLyricWordsInDictionary.json");
+      return _jquery.default.getJSON("data/pruned650words.json");
     }
 
   });
@@ -546,7 +546,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+65b64158"});
+            require("lyricsss/app")["default"].create({"name":"lyricsss","version":"0.0.0+14c6aaa9"});
           }
         
 //# sourceMappingURL=lyricsss.map
